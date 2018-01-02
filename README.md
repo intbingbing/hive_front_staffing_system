@@ -1,4 +1,4 @@
-# myde
+# vue_crud
 
 > A Vue.js project
 
