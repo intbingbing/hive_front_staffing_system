@@ -8,7 +8,7 @@
             el-col(:span="7")
                 el-date-picker(style="width:100%"  v-model="birthdayCreateValue" type="date" placeholder="请选择生日" default-value="1995-01-01" ref="birthdayDom")
             el-col(:span="3")
-                el-button(plain style="width:100%") Create11
+                el-button(plain style="width:100%") Create
 </template>
 
 <script>
