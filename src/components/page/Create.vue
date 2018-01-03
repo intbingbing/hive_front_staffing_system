@@ -9,7 +9,6 @@
                 el-date-picker(style="width:100%"  v-model="birthdayCreateValue" type="date" placeholder="请选择生日" default-value="1995-01-01" ref="birthdayDom")
             el-col(:span="3")
                 el-button(plain style="width:100%") Create
-        p {{inputWidth}}
 </template>
 
 <script>
@@ -19,8 +18,7 @@
             return {
                 nameCreateValue:'',
                 passwordCreateValue:'',
-                birthdayCreateValue:'',
-                inputWidth:''
+                birthdayCreateValue:''
             }
         },
         mounted:function(){
