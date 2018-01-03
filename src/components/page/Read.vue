@@ -2,7 +2,7 @@
   div(style="margin-top:15px")
     el-input(placeholder="请输入要查找的ID" v-model="idQueryValue" prefix-icon="el-icon-search" v-on:keyup.13.native="idQuery")
       el-button(slot="append" v-on:click="idQuery") Read
-    el-alert(v-show="idQueryInfo.errorMessage || idQueryInfo.id" :title="idQueryInfo.errorMessage || `ID:${idQueryInfo.id},Name:${idQueryInfo.name},Password:${idQueryInfo.password},Birthday:${idQueryInfo.birthday}`" type="success" show-icon)
+    el-alert(v-show="idQueryInfo.errorMessage || idQueryInfo.id" :closable='false' :title="idQueryInfo.errorMessage || `ID:${idQueryInfo.id},Name:${idQueryInfo.name},Password:${idQueryInfo.password},Birthday:${idQueryInfo.birthday}`" type="info" show-icon)
 </template>
 
 <script>
