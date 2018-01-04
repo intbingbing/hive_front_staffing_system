@@ -6,6 +6,9 @@
         el-row
             el-col(:span="12" :offset="6")
                 create
+        el-row
+            el-col(:span="12" :offset="6")
+                //test
 </template>
 
 <script>
@@ -31,7 +34,8 @@
         },
         components:{
             read,
-            create
+            create,
+            test
         }
     }
 </script>

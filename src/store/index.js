@@ -13,7 +13,8 @@ const state={
         name:'',
         password:'',
         birthday:''
-    }
+    },
+    idQueryResult:[]
 }
 
 export default new Vuex.Store({

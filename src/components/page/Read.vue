@@ -1,8 +1,15 @@
 <template lang="pug">
-  div(style="margin-top:15px")
-    el-input(placeholder="请输入要查找的ID" v-model="idQueryValue" prefix-icon="el-icon-search" v-on:keyup.13.native="idQuery")
-      el-button(slot="append" v-on:click="idQuery") Read
-    el-alert(v-show="idQueryInfo.errorMessage || idQueryInfo.id" :closable='false' :title="idQueryInfo.errorMessage || `ID:${idQueryInfo.id},Name:${idQueryInfo.name},Password:${idQueryInfo.password},Birthday:${idQueryInfo.birthday}`" type="info" show-icon)
+    div
+        el-form(:model="idValidForm" :rules="rules" ref="idValidForm" status-icon=true)
+            el-form-item(prop="idQueryValue" )
+                el-input(placeholder="请输入要查找的ID" v-model.number="idValidForm.idQueryValue" prefix-icon="el-icon-search" v-on:keyup.13.native="idQuery")
+                    el-button(slot="append" v-on:click="idQuery") Read
+            //p(v-show="idQueryInfo.errorMessage || idQueryInfo.id") {{idQueryInfo.errorMessage || `ID:${idQueryInfo.id},Name:${idQueryInfo.name},Password:${idQueryInfo.password},Birthday:${idQueryInfo.birthday}`}}
+            el-table(:data="idQueryResult" style="width:100%" border size="small")
+                el-table-column(prop="id" label="ID")
+                el-table-column(prop="name" label="Name")
+                el-table-column(prop="password" label="Password")
+                el-table-column(prop="birthday" label="Birthday")
 </template>
 
 <script>
@@ -12,22 +19,41 @@
         name: "read",
         data(){
             return {
-                idQueryValue:''
+                idValidForm:{
+                    idQueryValue:''
+                },
+                rules:{
+                    idQueryValue:[
+                        { required:true,message:'请输入ID！' },
+                        { type:"number",message:'请输入数字格式！' }
+                    ]
+                }
             }
         },
         methods:{
             idQuery:function () {
-                this.$store.dispatch(types.ID_QUERY,{id:this.idQueryValue})
+                this.$refs.idValidForm.validate((valid) => {
+                    if(valid){
+                        this.$store.dispatch(types.ID_QUERY,{
+                            id:this.idValidForm.idQueryValue
+                        })
+                    }else{
+                        return false
+                    }
+                })
             }
         },
         computed:{
             ...mapState([
-                'idQueryInfo'
+                'idQueryInfo',
+                'idQueryResult'
             ])
         }
     }
 </script>
 
 <style scoped>
-
+    div{
+        margin-top:15px
+    }
 </style>
