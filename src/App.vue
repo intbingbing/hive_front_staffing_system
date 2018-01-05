@@ -1,13 +1,14 @@
 <template lang="pug">
     div#id
-        el-row
-            el-col(:span="12" :offset="6")
-                read
-        el-row
-            el-col(:span="12" :offset="6")
-                create
-        el-row
-            el-col(:span="12" :offset="6")
+        router-view
+        <!--el-row-->
+            <!--el-col(:span="12" :offset="6")-->
+                <!--read-->
+        <!--el-row-->
+            <!--el-col(:span="12" :offset="6")-->
+                <!--create-->
+        <!--el-row-->
+            <!--el-col(:span="12" :offset="6")-->
                 //test
 </template>
 
@@ -35,18 +36,21 @@
         components:{
             read,
             create,
-            test
+            test,
         }
     }
 </script>
 
 <style>
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
+    #app {
+        font-family: 'Avenir', Helvetica, Arial, sans-serif;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        text-align: center;
+        color: #2c3e50;
+        margin-top: 60px;
+    }
+    *{
+        font-size: 14px;
+    }
 </style>
