@@ -18,13 +18,13 @@ export default {
                 errorMessage: '没有找到该数据！'
             }
         } else {
-            // state.idQueryInfo = {
-            //     isFound: 1,
-            //     id: data.id,
-            //     name: data.name,
-            //     password: data.password,
-            //     birthday: data.birthday
-            // };
+            state.idQueryInfo = {
+                isFound: 1,
+                // id: data.id,
+                // name: data.name,
+                // password: data.password,
+                // birthday: data.birthday
+            };
             state.idQueryResult = data;
         }
     }
