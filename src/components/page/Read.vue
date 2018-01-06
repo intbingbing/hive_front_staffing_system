@@ -10,10 +10,10 @@
             //p(v-if="idQueryInfo.isFound===0") 没有找到记录！
             el-alert(v-if="idQueryInfo.isFound===0" title="没有找到记录！" type="error" center show-icon :closable="false")
             el-table(v-else-if="idQueryInfo.isFound===1" :data="idQueryResult" style="width:100%" border size="small")
-                el-table-column(prop="id" label="ID")
+                el-table-column(prop="id" label="ID" width="60px")
                 el-table-column(prop="name" label="Name")
-                el-table-column(prop="password" label="Password")
-                el-table-column(prop="birthday" label="Birthday")
+                el-table-column(prop="password" label="Password" width="250px")
+                el-table-column(prop="birthday" label="Birthday" width="140px")
             span(v-else)
 </template>
 

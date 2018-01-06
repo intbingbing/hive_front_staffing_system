@@ -1,8 +1,11 @@
 <template lang="pug">
     el-tabs
         el-tab-pane(label="查询")
-            Read
-        el-tab-pane(label="增加") 增加
+            el-col(:span="12")
+                Read
+        el-tab-pane(label="增加")
+            el-col(:span="8")
+                Create
         el-tab-pane(label="删除") 删除
         el-tab-pane(label="修改") 修改
     <!--<el-tabs v-model="activeName" @tab-click="handleClick">-->
@@ -14,6 +17,7 @@
 </template>
 <script>
     import Read from './Read'
+    import Create from './Create'
     export default {
         data() {
             return {
@@ -21,7 +25,8 @@
             };
         },
         components:{
-            Read
+            Read,
+            Create
         },
         methods: {
             // handleClick(tab, event) {
