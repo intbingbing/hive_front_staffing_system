@@ -14,7 +14,11 @@ const state={
         password:'',
         birthday:''
     },
-    idQueryResult:[]
+    idQueryResult:[],
+    createSubmitInfo:{
+        createSuccessful:''
+    },
+    createSubmitResult:[]
 }
 
 export default new Vuex.Store({

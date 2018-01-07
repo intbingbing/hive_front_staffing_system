@@ -27,5 +27,15 @@ export default {
             };
             state.idQueryResult = data;
         }
+    },
+    [types.CREATE_SUBMIT](state,res){
+        if(typeof(res)==='object'){
+            state.createSubmitInfo.createSuccessful=1;
+            state.createSubmitResult=res;
+        }else{
+            state.createSubmitInfo.createSuccessful=0;
+            state.createSubmitResult=res;
+        }
+        //console.log(state.createSubmitInfo.createSuccessful);
     }
 }

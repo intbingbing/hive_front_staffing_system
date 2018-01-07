@@ -17,19 +17,12 @@
                     el-col(:span="12")
                         el-button(type="primary" style="width:100%" @click="createSubmit") Create
                     el-col(:span="12")
-                        el-button(type="danger" style="width:100%") Reset
-        <!--el-row(:gutter="10")-->
-            <!--el-col(:span="6")-->
-                <!--el-input(v-model="createValidForm.nameCreateValue" placeholder="请输入姓名" ref="inputDom")-->
-            <!--el-col(:span="7")-->
-                <!--el-input(v-model="createValidForm.passwordCreateValue" placeholder="请输入密码")-->
-            <!--el-col(:span="7")-->
-                <!--el-date-picker(style="width:100%"  v-model="createValidForm.birthdayCreateValue" type="date" placeholder="请选择生日" default-value="1995-01-01" ref="birthdayDom")-->
-            <!--el-col(:span="4")-->
-                <!--el-button(plain style="width:100%") Create-->
+                        el-button(type="danger" style="width:100%" @click="resetForm('createValidForm')") Reset
 </template>
 
 <script>
+    import * as types from '../../store/types'
+    import { mapState } from 'vuex'
     export default {
         name: 'create',
         data:function () {
@@ -66,9 +59,46 @@
             }
         },
         methods:{
-            createSubmit:function () {
-                console.log('sss')
+            createSubmit () {
+                this.$refs.createValidForm.validate(async (valid) => {
+                    if(valid){
+                        await this.$store.dispatch(types.CREATE_SUBMIT,{
+                            name:this.createValidForm.nameCreateValue,
+                            password:this.createValidForm.passwordCreateValue,
+                            checkPassword:this.createValidForm.checkPassword,
+                            birthday:this.createValidForm.birthdayCreateValue,
+                        });
+                        if(this.createSubmitInfo.createSuccessful===1){
+                            console.log(this.createSubmitResult)
+                            this.$notify.success({
+                                title: '创建成功！',
+                                message: `ID:${this.createSubmitResult[0].id}    Name:${this.createSubmitResult[0].name}`,
+                                duration:6000,
+                                showClose: false
+                            });
+                        }else if(this.createSubmitInfo.createSuccessful===0){
+                            this.$notify.error({
+                                message: '服务器内部错误！',
+                                duration:6000,
+                                showClose: false
+                            });
+                        }else{
+                            console.log('await失败！')
+                        }
+                    }else{
+                        return false
+                    }
+                });
+            },
+            resetForm (formName) {
+                this.$refs[formName].resetFields();
             }
+        },
+        computed:{
+            ...mapState([
+                'createSubmitInfo',
+                'createSubmitResult'
+            ])
         },
         mounted:function(){
             //this.inputWidth=this.$refs.inputDom.$el.offsetWidth;
