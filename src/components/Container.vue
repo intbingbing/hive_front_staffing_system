@@ -29,4 +29,7 @@
     .el-container{
         min-height: 96vh;
     }
+    .el-header{
+        padding:0;
+    }
 </style>

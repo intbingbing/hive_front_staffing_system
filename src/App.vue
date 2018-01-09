@@ -14,7 +14,7 @@
 
 <script>
     import { mapActions , mapGetters , mapState , mapMutations } from "vuex"
-    import read from './components/page/Read'
+    import read from './components/page/Retrieve'
     import create from './components/page/Create.vue'
     import test from './components/page/Test'
     import * as types from './store/types'

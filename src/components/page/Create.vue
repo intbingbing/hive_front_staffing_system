@@ -69,7 +69,6 @@
                             birthday:this.createValidForm.birthdayCreateValue,
                         });
                         if(this.createSubmitInfo.createSuccessful===1){
-                            console.log(this.createSubmitResult)
                             this.$notify.success({
                                 title: '创建成功！',
                                 message: `ID:${this.createSubmitResult[0].id}    Name:${this.createSubmitResult[0].name}`,

@@ -18,7 +18,12 @@ const state={
     createSubmitInfo:{
         createSuccessful:''
     },
-    createSubmitResult:[]
+    createSubmitResult:[],
+    updateSubmitInfo:{
+        updateSuccessful:'',
+        errorMessage:''
+    },
+    updateSubmitResult:{}
 }
 
 export default new Vuex.Store({

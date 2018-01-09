@@ -1,5 +1,5 @@
-<template>
-
+<template lang="pug">
+    header
 </template>
 <script>
     export default {
@@ -15,3 +15,10 @@
         }
     };
 </script>
+<style scoped>
+    header{
+        background-color: #14938b;
+        width: 100%;
+        height: 100%;
+    }
+</style>

@@ -2,12 +2,14 @@
     el-tabs
         el-tab-pane(label="查询")
             el-col(:span="12")
-                Read
+                Retrieve
         el-tab-pane(label="增加")
             el-col(:span="8")
                 Create
+        el-tab-pane(label="修改")
+            el-col(:span="8")
+                Update
         el-tab-pane(label="删除") 删除
-        el-tab-pane(label="修改") 修改
     <!--<el-tabs v-model="activeName" @tab-click="handleClick">-->
         <!--<el-tab-pane label="用户管理" name="first">用户管理</el-tab-pane>-->
         <!--<el-tab-pane label="配置管理" name="second">配置管理</el-tab-pane>-->
@@ -16,8 +18,9 @@
     <!--</el-tabs>-->
 </template>
 <script>
-    import Read from './Read'
+    import Retrieve from './Retrieve'
     import Create from './Create'
+    import Update from './Update'
     export default {
         data() {
             return {
@@ -25,8 +28,9 @@
             };
         },
         components:{
-            Read,
-            Create
+            Retrieve,
+            Create,
+            Update
         },
         methods: {
             // handleClick(tab, event) {

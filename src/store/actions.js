@@ -19,5 +19,22 @@ export default {
             commit(types.CREATE_SUBMIT,res)
         }
         //console.log(createValidForm)
+    },
+    async [types.UPDATE_SUBMIT] ({commit},updateForm){
+        let code=0;
+        if(!(updateForm.name||updateForm.password||updateForm.birthday)){
+            code=420;//420表示为满足条件：没有要更新的值！
+            commit(types.UPDATE_SUBMIT_ERROR,code)
+        }else{
+            //修改前先查询是否存在!
+            const idQuery=await api.idQuery(updateForm.id);
+            if(typeof(idQuery)==='string'){
+                code=520;//510表示服务器未查询到该数据
+                commit(types.UPDATE_SUBMIT_ERROR,code);
+            }else{
+                const res =await api.updateSubmit(updateForm);
+                commit(types.UPDATE_SUBMIT,res)
+            }
+        }
     }
 }
