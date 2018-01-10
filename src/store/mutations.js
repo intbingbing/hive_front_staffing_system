@@ -57,5 +57,19 @@ export default {
             state.updateSubmitInfo.updateSuccessful=1
             //console.log(res);
         }
+    },
+    [types.ID_DELETE_ERROR](state,code){
+        if(code===520){
+            state.idDeleteInfo.errorMessage='没有该数据！';
+            state.idDeleteInfo.idDeleteSuccessful=0;
+        }
+        if(code===500){
+            state.idDeleteInfo.errorMessage='服务器内部错误！';
+            state.idDeleteInfo.idDeleteSuccessful=0;
+        }
+    },
+    [types.ID_DELETE](state,res){
+        state.idDeleteInfo.idDeleteSuccessful=1;
+        state.idDeleteResult=res;
     }
 }

@@ -1,5 +1,5 @@
 <template lang="pug">
-    el-tabs
+    el-tabs(type="border-card")
         el-tab-pane(label="查询")
             el-col(:span="12")
                 Retrieve
@@ -9,7 +9,9 @@
         el-tab-pane(label="修改")
             el-col(:span="8")
                 Update
-        el-tab-pane(label="删除") 删除
+        el-tab-pane(label="删除")
+            el-col(:span="12")
+                Delete
     <!--<el-tabs v-model="activeName" @tab-click="handleClick">-->
         <!--<el-tab-pane label="用户管理" name="first">用户管理</el-tab-pane>-->
         <!--<el-tab-pane label="配置管理" name="second">配置管理</el-tab-pane>-->
@@ -21,6 +23,7 @@
     import Retrieve from './Retrieve'
     import Create from './Create'
     import Update from './Update'
+    import Delete from './Delete'
     export default {
         data() {
             return {
@@ -30,7 +33,8 @@
         components:{
             Retrieve,
             Create,
-            Update
+            Update,
+            Delete
         },
         methods: {
             // handleClick(tab, event) {

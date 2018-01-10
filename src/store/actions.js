@@ -27,13 +27,30 @@ export default {
             commit(types.UPDATE_SUBMIT_ERROR,code)
         }else{
             //修改前先查询是否存在!
-            const idQuery=await api.idQuery(updateForm.id);
+            let idQuery=await api.idQuery(updateForm.id);
             if(typeof(idQuery)==='string'){
-                code=520;//510表示服务器未查询到该数据
+                code=520;//520表示服务器未查询到该数据
                 commit(types.UPDATE_SUBMIT_ERROR,code);
             }else{
                 const res =await api.updateSubmit(updateForm);
                 commit(types.UPDATE_SUBMIT,res)
+            }
+        }
+    },
+    async [types.ID_DELETE] ({commit},idDeleteForm) {
+        let code=0;
+        let idQueryResult=await api.idQuery(idDeleteForm.id);
+        if(typeof(idQueryResult)==='string') {
+            code = 520 ;//520表示服务器未查询到该数据
+            commit(types.ID_DELETE_ERROR,code);
+        }else{
+            let res= await api.idDelete(idDeleteForm);
+            if(res.statusCode===500){
+                code=500;   //500服务器内部错误
+                commit(types.ID_DELETE_ERROR,code)
+            }
+            if(res.statusCode===200){
+                commit(types.ID_DELETE,res);
             }
         }
     }

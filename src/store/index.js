@@ -23,7 +23,12 @@ const state={
         updateSuccessful:'',
         errorMessage:''
     },
-    updateSubmitResult:{}
+    updateSubmitResult:{},
+    idDeleteInfo:{
+        idDeleteSuccessful:'',
+        errorMessage:''
+    },
+    idDeleteResult:{}
 }
 
 export default new Vuex.Store({

@@ -8,7 +8,8 @@ Vue.use(VueAxios,axios)
 const baseUrl='http://122.112.210.98:3000';
 const idQueryUrl = '/idquery';
 const createSubmitUrl='/addsubmit';
-const updateSubmitUrl='/update'
+const updateSubmitUrl='/update';
+const idDeleteUrl='/iddelete';
 
 export async function idQuery(idQueryValue){
     //let res=axios.get(`${baseUrl}${idQueryUrl}?id=${idQueryValue}`);
@@ -31,4 +32,8 @@ export async function createSubmit({name,password,checkPassword,birthday}) {
 export async function updateSubmit(updateForm) {
     //console.log(updateForm);
     return (await axios.post(`${baseUrl}${updateSubmitUrl}`,qs.stringify(updateForm))).data;
+}
+
+export async function idDelete(idDeleteForm) {
+    return (await axios.post(`${baseUrl}${idDeleteUrl}`,qs.stringify(idDeleteForm))).data;
 }
