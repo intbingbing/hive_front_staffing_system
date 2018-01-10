@@ -14,7 +14,8 @@
                 <!--el-table-column(prop="name" label="Name")-->
                 <!--el-table-column(prop="password" label="Password")-->
                 <!--el-table-column(prop="birthday" label="Birthday" width="200px")-->
-            el-alert(v-else title="删除成功\！" type="success" center show-icon :closable="false")
+            el-alert(v-else-if="idDeleteInfo.idDeleteSuccessful===1" title="删除成功\！" type="success" center show-icon :closable="false")
+            span(v-else)
 </template>
 
 <script>

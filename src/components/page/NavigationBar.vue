@@ -1,6 +1,7 @@
 <template lang="pug">
     header
         img(:src="logo")
+        span Vue.js
 </template>
 <script>
     import logo from '../../assets/logo.png'
@@ -28,5 +29,14 @@
         width:50px;
         height:50px;
         padding:5px 20px ;
+    }
+    span{
+        color:#fff;
+        /*display: inline-block;*/
+        position: relative;
+        bottom:15px;
+        /*line-height: 30px;*/
+        font-size: 1.8em;
+        /*margin:10px 5px;*/
     }
 </style>
