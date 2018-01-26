@@ -11,6 +11,12 @@ export default {
     //         errorMessage:'ID格式输入错误！'
     //     }
     // },
+    [types.LOG_IN](state, {data}){
+        state.loginInfo=data;
+    },
+    [types.LOG_IN_ERROR](state, {data}){
+        state.loginInfo=data;
+    },
     [types.ID_QUERY](state, {data}) {
         if (typeof(data) === 'string') {
             state.idQueryInfo = {

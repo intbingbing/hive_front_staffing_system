@@ -14,8 +14,8 @@
 
 <script>
     import { mapActions , mapGetters , mapState , mapMutations } from "vuex"
-    import read from './components/page/Retrieve'
-    import create from './components/page/Create.vue'
+    import read from './components/page/crud/Retrieve'
+    import create from './components/page/crud/Create.vue'
     import test from './components/page/Test'
     import * as types from './store/types'
     export default {
@@ -49,8 +49,5 @@
         text-align: center;
         color: #2c3e50;
         margin-top: 60px;
-    }
-    *{
-        font-size: 14px;
     }
 </style>

@@ -1,32 +1,37 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Container from '@/components/Container'
-import md5 from 'crypto-js/md5'
-import hex from 'crypto-js/enc-hex'
+import * as api from '../store/api'
+const Login = () => import('@/components/page/auth/Login');
+const Container = () => import('@/components/Container');
 
-Vue.use(Router)
+Vue.use(Router);
 
 const router = new Router({
-  routes: [
-    {
-      path: '/',
-      name: 'Container',
-      component: Container
-    }
-  ],
-  mode:'history'
-})
+    routes: [
+        {
+            path: '/',
+            name: 'Container',
+            component: Container
+        },
+        {
+            path:'/login',
+            name:'Login',
+            component:Login
+        }
+    ]
+});
 
-router.beforeEach((to, from, next) => {
-    let password='a';
-    console.log(password);
-    let tmp = md5(password);
-    console.log("【0密】："+tmp);
-    let secret = md5(password).toString(hex);
-    console.log('【1密】：'+secret);
-    secret = md5(secret).toString(hex);
-    console.log('【2密】：'+secret);
-    next();
+router.beforeEach(async (to, from, next) => {
+    if(to.path==='/login'){
+        next();
+    }else{
+        let res=await api.checkCookie();
+        if(res.statusCode==='200112'){
+            next();
+        }else{
+            next('/login');
+        }
+    }
 });
 
 export default router;

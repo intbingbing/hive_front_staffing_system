@@ -7,10 +7,11 @@ import 'element-ui/lib/theme-chalk/index.css'
 import '../theme/index.css'
 import store from './store/index.js'
 import App from './App'
-
+// 点线特效
+import VueParticles from 'vue-particles'
+Vue.use(VueParticles);
 Vue.config.productionTip = false
 Vue.use(ElementUI);
-
 /* eslint-disable no-new */
 new Vue({
   el: '#app',

@@ -2,14 +2,29 @@ import Vue from 'vue'
 import axios from 'axios'
 import VueAxios from 'vue-axios'
 import qs from 'qs'
+import router from '../router'
 
-Vue.use(VueAxios,axios)
+Vue.use(VueAxios,axios);
 
 const baseUrl='http://122.112.210.98:3000';
+const loginUrl='/login';
 const idQueryUrl = '/idquery';
 const createSubmitUrl='/addsubmit';
 const updateSubmitUrl='/update';
 const idDeleteUrl='/iddelete';
+const checkCookieUrl='/checkCookie';
+
+axios.defaults.withCredentials = true;
+
+export async function login(username,secret){
+    return (await axios.post(`${baseUrl}${loginUrl}`,qs.stringify({
+        username,secret
+    })))
+}
+
+export async function checkCookie(){
+    return (await axios.get(`${baseUrl}${checkCookieUrl}`)).data;
+}
 
 export async function idQuery(idQueryValue){
     //let res=axios.get(`${baseUrl}${idQueryUrl}?id=${idQueryValue}`);

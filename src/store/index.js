@@ -6,6 +6,8 @@ Vue.use(Vuex);
 
 const state={
     count:10,
+    userInfo:{},
+    loginInfo:{},
     idQueryInfo:{
         errorMessage:'',
         isFound:'',

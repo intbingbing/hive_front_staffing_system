@@ -9,7 +9,7 @@
 </template>
 <script>
     import NavigationBar from './page/NavigationBar'
-    import Tabs from './page/Tabs'
+    import Tabs from './page/crud/Tabs'
     import ConFooter from './page/ConFooter'
     export default {
         name: 'container',

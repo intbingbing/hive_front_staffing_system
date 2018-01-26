@@ -13,5 +13,6 @@
     footer{
         text-align: center;
         color: rgb(60, 54, 61);
+        font-size: 10px;
     }
 </style>

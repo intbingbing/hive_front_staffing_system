@@ -1,8 +1,25 @@
 import * as types from './types'
 import * as api from './api'
+import md5 from 'crypto-js/md5'
+import hex from 'crypto-js/enc-hex'
 import router from '../router'
 
 export default {
+    async [types.LOG_IN] ({commit},{username,password}) {
+        //console.log(`user:${username}; pass:${password}`);
+        let salt = 'types.ID_QUERY_ERROR';
+        password=salt+password;
+        let secret = md5(password).toString(hex);
+        secret=md5(secret).toString(hex);
+        //console.log(`salt:${salt};pass:${password};secret:${secret}`);
+        let res = await api.login(username,secret);
+        if(res.data.tag===0){
+            commit(types.LOG_IN_ERROR,{data:res.data});
+        }else{
+            commit(types.LOG_IN,{data:res.data});
+            router.push({ name: 'Container' })
+        }
+    },
     async [types.ID_QUERY] ({commit},{id}) {
         // if(isNaN(parseInt(id))){
         //     commit(types.ID_QUERY_ERROR);

@@ -1,10 +1,16 @@
+//auth
+export const LOG_IN='LOG_IN';
+export const LOG_IN_ERROR = 'LOG_IN_ERROR';
+export const LOG_OUT = 'LOG_OUT';
+//CRUD
+export const CREATE_SUBMIT='CREATE_SUBMIT';//Create
+export const ID_DELETE='ID_DELETE';//Delete
+export const ID_DELETE_ERROR='ID_DELETE_ERROR';//Delete error
+export const UPDATE_SUBMIT='UPDATE_SUBMIT';//Update
+export const UPDATE_SUBMIT_ERROR='UPDATE_SUBMIT_ERROR';//Update error
+export const ID_QUERY='ID_QUERY';//Retrieve
+export const ID_QUERY_ERROR='ID_QUERY_ERROR';//Retrieve error
+//test
 export const INCREMENT='INCREMENT';
 export const DECREMENT='DECREMENT';
-export const ID_QUERY='ID_QUERY';
-export const ID_QUERY_ERROR='ID_QUERY_ERROR';
-export const CREATE_SUBMIT='CREATE_SUBMIT';
-export const UPDATE_SUBMIT='UPDATE_SUBMIT';
-export const UPDATE_SUBMIT_ERROR='UPDATE_SUBMIT_ERROR';
-export const ID_DELETE='ID_DELETE';
-export const ID_DELETE_ERROR='ID_DELETE_ERROR';
 

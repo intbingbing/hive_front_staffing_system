@@ -8,7 +8,7 @@
             el-form-item(label="确认" prop="checkPassword")
                 el-input(v-model="createValidForm.checkPassword" placeholder="请再次输入密码" type="password")
             el-form-item(label="生日" prop="birthdayCreateValue")
-                el-date-picker(style="width:100%"
+                el-date-picker#consoleerr(style="width:100%"
                                 v-model="createValidForm.birthdayCreateValue"
                                 type="date" placeholder="请选择生日"
                                 default-value="1995-01-01" ref="birthdayDom")
@@ -21,7 +21,7 @@
 </template>
 
 <script>
-    import * as types from '../../store/types'
+    import * as types from '../../../store/types'
     import { mapState } from 'vuex'
     export default {
         name: 'create',
