@@ -1,11 +1,5 @@
 import * as types from './types'
 export default {
-    [types.INCREMENT](state) {
-        state.count++;
-    },
-    [types.DECREMENT](state) {
-        state.count--;
-    },
     // [types.ID_QUERY_ERROR](state){
     //     state.idQueryInfo={
     //         errorMessage:'ID格式输入错误！'
@@ -17,8 +11,16 @@ export default {
     [types.LOG_IN_ERROR](state, {data}){
         state.loginInfo=data;
     },
-    [types.ID_QUERY](state, {data}) {
-        if (typeof(data) === 'string') {
+    [types.LOG_OUT](state){
+        state.loginInfo={};
+        state.userInfo={};
+        state.idQueryInfo={};
+    },
+    [types.LOAD_HEADER_PORTRAIT_URL](state,data){
+        state.userInfo=data;
+    },
+    [types.ID_QUERY](state, data) {
+        if (data.length === 0) {
             state.idQueryInfo = {
                 isFound: 0,
                 errorMessage: '没有找到该数据！'
@@ -31,6 +33,8 @@ export default {
                 // password: data.password,
                 // birthday: data.birthday
             };
+            let formatDate=new Date(data[0].birthday);
+            data[0].birthday=`${formatDate.getFullYear()}-${formatDate.getMonth()+1}-${formatDate.getDate()}`;
             state.idQueryResult = data;
         }
     },

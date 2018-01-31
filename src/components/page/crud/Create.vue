@@ -71,7 +71,7 @@
                         if(this.createSubmitInfo.createSuccessful===1){
                             this.$notify.success({
                                 title: '创建成功！',
-                                message: `ID:${this.createSubmitResult[0].id}    Name:${this.createSubmitResult[0].name}`,
+                                message: `ID:${this.createSubmitResult.id}    Name:${this.createSubmitResult.name}`,
                                 duration:6000,
                                 showClose: false
                             });

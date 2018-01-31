@@ -1,16 +1,16 @@
 <template lang="pug">
     el-tabs(type="border-card")
         el-tab-pane(label="查询")
-            el-col(:span="12")
+            el-col(:span="16")
                 Retrieve
         el-tab-pane(label="增加")
-            el-col(:span="8")
+            el-col(:span="12")
                 Create
         el-tab-pane(label="修改")
-            el-col(:span="8")
+            el-col(:span="12")
                 Update
         el-tab-pane(label="删除")
-            el-col(:span="12")
+            el-col(:span="16")
                 Delete
     <!--<el-tabs v-model="activeName" @tab-click="handleClick">-->
         <!--<el-tab-pane label="用户管理" name="first">用户管理</el-tab-pane>-->

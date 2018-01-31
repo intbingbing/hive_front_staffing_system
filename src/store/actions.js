@@ -27,7 +27,7 @@ export default {
         // }
         //console.log(id);
         const res = await api.idQuery(id);
-        commit(types.ID_QUERY,{data:res})
+        commit(types.ID_QUERY,res)
     },
     async [types.CREATE_SUBMIT] ({commit},{name,password,checkPassword,birthday}) {
         if(name&&password&&checkPassword&&birthday){

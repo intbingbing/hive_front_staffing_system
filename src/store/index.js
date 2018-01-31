@@ -5,7 +5,6 @@ import mutations from './mutations'
 Vue.use(Vuex);
 
 const state={
-    count:10,
     userInfo:{},
     loginInfo:{},
     idQueryInfo:{

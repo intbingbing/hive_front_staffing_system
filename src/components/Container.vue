@@ -1,6 +1,6 @@
 <template lang="pug">
     el-container
-        el-header
+        el-header(height="54px")
             NavigationBar
         el-main
             Tabs
@@ -25,11 +25,17 @@
         }
     }
 </script>
-<style scoped>
+<style lang="less" scoped>
     .el-container{
         min-height: 96vh;
-    }
-    .el-header{
-        padding:0;
+        display: flex;
+        .el-header{
+            padding:0;
+        }
+        .el-main{
+            width:1042px;
+            margin-left: auto;
+            margin-right: auto;
+        }
     }
 </style>

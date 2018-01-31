@@ -13,6 +13,7 @@ const createSubmitUrl='/addsubmit';
 const updateSubmitUrl='/update';
 const idDeleteUrl='/iddelete';
 const checkCookieUrl='/checkCookie';
+const clearCookieUrl='/clear_cookie';
 
 axios.defaults.withCredentials = true;
 
@@ -24,6 +25,10 @@ export async function login(username,secret){
 
 export async function checkCookie(){
     return (await axios.get(`${baseUrl}${checkCookieUrl}`)).data;
+}
+
+export async function clearCookie(){
+    return (await axios.get(`${baseUrl}${clearCookieUrl}`)).data;
 }
 
 export async function idQuery(idQueryValue){

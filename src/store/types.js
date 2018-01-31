@@ -10,7 +10,10 @@ export const UPDATE_SUBMIT='UPDATE_SUBMIT';//Update
 export const UPDATE_SUBMIT_ERROR='UPDATE_SUBMIT_ERROR';//Update error
 export const ID_QUERY='ID_QUERY';//Retrieve
 export const ID_QUERY_ERROR='ID_QUERY_ERROR';//Retrieve error
+//user info
+export const LOAD_HEADER_PORTRAIT_URL='LOAD_HEADER_PORTRAIT_URL';
 //test
 export const INCREMENT='INCREMENT';
 export const DECREMENT='DECREMENT';
+
 
