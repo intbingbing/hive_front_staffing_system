@@ -23,7 +23,7 @@
 </template>
 
 <script>
-    import * as types from '../../../store/types'
+    import * as types from '../../store/types'
     import { mapState } from 'vuex'
     export default {
         name: 'create',
@@ -47,12 +47,21 @@
                         { required: true, message: 'ID为必填项！', trigger: 'blur' },
                         { type:"number", message:'请输入数字格式！' }
                     ],
+                    nameUpdateValue:[
+                        { required: true, message: '请输入姓名', trigger: 'blur' },
+                        { min: 1, max: 15, message: '长度在 1 到 15 个字符', trigger: 'blur' }
+                    ],
                     passwordUpdateValue:[
+                        { required: true, message: '请输入密码', trigger: 'blur' },
                         { min: 6, max: 40, message: '长度在 6 到 40 个字符', trigger: 'blur' }
                     ],
                     checkPassword:[
+                        { required: true, message: '请再次输入密码', trigger: 'blur' },
                         { validator:checkPassword, trigger: 'blur' }
                     ],
+                    birthdayUpdateValue:[
+                        { type: 'date', required: true, message: '请选择日期', trigger: 'change' }
+                    ]
                 }
             }
         },
@@ -60,26 +69,12 @@
             updateSubmit () {
                 this.$refs.updateValidForm.validate(async (valid) => {
                     if(valid){
-                        //console.log(typeof(this.birthdayUpdateValue));
-                        if(this.updateValidForm.birthdayUpdateValue!==''){
-                            this.updateValidForm.birthdayUpdateValue=new Date(this.updateValidForm.birthdayUpdateValue);
-                            this.updateValidForm.birthdayUpdateValue=`${this.updateValidForm.birthdayUpdateValue.getFullYear()}-${this.updateValidForm.birthdayUpdateValue.getMonth()+1}-${this.updateValidForm.birthdayUpdateValue.getDate()}`;
-                            //console.log(this.updateValidForm.birthdayUpdateValue)
-                        }
-                        //console.log(this.updateValidForm.birthdayUpdateValue)
-                        let tmpForm={
+                        await this.$store.dispatch(types.UPDATE_SUBMIT,{
                             id:this.updateValidForm.idUpdateValue,
                             name:this.updateValidForm.nameUpdateValue,
                             password:this.updateValidForm.passwordUpdateValue,
                             birthday:this.updateValidForm.birthdayUpdateValue
-                        };
-                        let updateForm={};
-                        for (let i in tmpForm) {
-                            if(tmpForm[i].length!==0){
-                                updateForm[i]=tmpForm[i];
-                            }
-                        }
-                        await this.$store.dispatch(types.UPDATE_SUBMIT,updateForm);
+                        });
                         if(this.updateSubmitInfo.updateSuccessful===1){
                             this.$notify.success({
                                 title: '更新成功！',

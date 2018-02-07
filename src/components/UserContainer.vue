@@ -8,20 +8,22 @@
             ConFooter
 </template>
 <script>
-    import NavigationBar from './page/NavigationBar'
-    import Tabs from './page/crud/Tabs'
-    import ConFooter from './page/ConFooter'
+    import NavigationBar from './commonComponents/NavigationBar'
+    import Tabs from './crud/Tabs'
+    import ConFooter from './commonComponents/ConFooter'
     export default {
         name: 'container',
         data: function () {
             return {
-
+                a:100
             }
         },
         components:{
             NavigationBar,
             Tabs,
             ConFooter
+        },
+        mounted(){
         }
     }
 </script>
@@ -32,8 +34,8 @@
         .el-header{
             padding:0;
         }
-        .el-main{
-            width:1042px;
+        .el-tabs{
+            width:1000px;
             margin-left: auto;
             margin-right: auto;
         }

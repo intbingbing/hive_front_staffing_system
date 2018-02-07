@@ -5,6 +5,17 @@ export default {
     //         errorMessage:'ID格式输入错误！'
     //     }
     // },
+
+    [types.GET_ALL_STAFF_INFO](state,data){
+        state.allStaffInfo = data;
+    },
+    [types.GET_POST](state,data){
+        state.postInfo = data;
+    },
+    [types.GET_DEPARTMENT](state,data){
+        state.departmentInfo = data;
+    },
+
     [types.LOG_IN](state, {data}){
         state.loginInfo=data;
     },
@@ -20,7 +31,7 @@ export default {
         state.userInfo=data;
     },
     [types.ID_QUERY](state, data) {
-        if (data.length === 0) {
+        if (data.statusCode === '400231') {
             state.idQueryInfo = {
                 isFound: 0,
                 errorMessage: '没有找到该数据！'
@@ -48,18 +59,14 @@ export default {
         }
         //console.log(state.createSubmitInfo.createSuccessful);
     },
-    [types.UPDATE_SUBMIT_ERROR](state,code){
-        if(code===420){
-            state.updateSubmitInfo.errorMessage='没有要更新的数据！';
-            state.updateSubmitInfo.updateSuccessful=0
-        }
-        if(code===520){
+    [types.UPDATE_SUBMIT_ERROR](state,res){
+        if(res.statusCode==='400231'){
             state.updateSubmitInfo.errorMessage='没有该数据！';
             state.updateSubmitInfo.updateSuccessful=0
         }
     },
     [types.UPDATE_SUBMIT](state,res){
-        if(typeof(res)==='string'){
+        if(res.statusCode===500){
             state.updateSubmitInfo.errorMessage='服务器内部错误！';
             state.updateSubmitInfo.updateSuccessful=0
         }else{
@@ -68,12 +75,12 @@ export default {
             //console.log(res);
         }
     },
-    [types.ID_DELETE_ERROR](state,code){
-        if(code===520){
+    [types.ID_DELETE_ERROR](state,res){
+        if(res.statusCode==='400221'){
             state.idDeleteInfo.errorMessage='没有该数据！';
             state.idDeleteInfo.idDeleteSuccessful=0;
         }
-        if(code===500){
+        if(res.statusCode===500){
             state.idDeleteInfo.errorMessage='服务器内部错误！';
             state.idDeleteInfo.idDeleteSuccessful=0;
         }

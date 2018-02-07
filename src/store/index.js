@@ -29,8 +29,11 @@ const state={
         idDeleteSuccessful:'',
         errorMessage:''
     },
-    idDeleteResult:{}
-}
+    idDeleteResult:{},
+    allStaffInfo:[],
+    postInfo:[],
+    departmentInfo:[],
+};
 
 export default new Vuex.Store({
     state,

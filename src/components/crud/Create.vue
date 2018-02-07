@@ -21,7 +21,7 @@
 </template>
 
 <script>
-    import * as types from '../../../store/types'
+    import * as types from '../../store/types'
     import { mapState } from 'vuex'
     export default {
         name: 'create',

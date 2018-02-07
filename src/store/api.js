@@ -14,9 +14,27 @@ const updateSubmitUrl='/update';
 const idDeleteUrl='/iddelete';
 const checkCookieUrl='/checkCookie';
 const clearCookieUrl='/clear_cookie';
+const getAllStaffInfoUrl='/user/hive_read_all_employee';
+const getPostUrl='/user/hive_get_post';
+const getDepartmentUrl='/user/hive_get_department';
+
 
 axios.defaults.withCredentials = true;
 
+//V2.0
+export async function getAllStaffInfo(){
+    return (await axios.get(`${baseUrl}${getAllStaffInfoUrl}`)).data;
+}
+
+export async function getPost(){
+    return (await axios.get(`${baseUrl}${getPostUrl}`)).data;
+}
+
+export async function getDeportment(){
+    return (await axios.get(`${baseUrl}${getDepartmentUrl}`)).data;
+}
+
+//V1.0
 export async function login(username,secret){
     return (await axios.post(`${baseUrl}${loginUrl}`,qs.stringify({
         username,secret
