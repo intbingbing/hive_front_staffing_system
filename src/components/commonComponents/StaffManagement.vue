@@ -1,26 +1,33 @@
 <template lang="pug">
     section
-        el-pagination(@size-change="handleSizeChange",
-        @current-change="handleCurrentChange",
-        :current-page="currentPage",
-        :page-sizes="[10, 20, 50, 100, 200, 500]",
-        :page-size="pageSize"
-        layout="total, sizes, prev, pager, next, jumper",
-        :total="staffCount")
-        el-table(:data="allStaffInfo" border size="small" :stripe="true"  :default-sort="{prop: 'employee_id'}")
-            el-table-column(type="selection" width="35")
-            el-table-column(prop="employee_id" label="工号" width="50px")
-            el-table-column(prop="employee_name" label="姓名")
-            el-table-column(prop="post_name" label="职位" :filters="this.filters_post_name" :filter-method="filterPostName")
-            el-table-column(prop="department_name" label="部门" :filters="this.filters_department_name" :filter-method="filterDepartmentName")
-            el-table-column(prop="employee_salary" label="薪水" :filters="this.filters_employee_salary" :filter-method="filterEmployeeSalary")
-            el-table-column(prop="employee_edu" label="学历")
-            el-table-column(prop="employee_work_seniority" label="参加工作")
-            el-table-column(prop="employee_phone" label="联系方式")
-            el-table-column(label="操作" width="160")
-                template(slot-scope="scope")
-                    el-button(size="mini" @click="handleEdit(scope.$index, scope.row)") 编辑
-                    el-button(size="mini" type="danger" @click="handleDelete(scope.$index, scope.row)") 删除
+        el-row
+            el-col(:span="6")
+                el-input(prefix-icon="el-icon-search" placeholder="搜索姓名" v-model="searchValue")
+            el-col(:span="2")
+            el-col(:span="16")
+                el-pagination(@size-change="handleSizeChange",
+                @current-change="handleCurrentChange",
+                :current-page="currentPage",
+                :page-sizes="[10, 20, 50, 100, 200, 500]",
+                :page-size="pageSize"
+                layout="total, sizes, prev, pager, next, jumper",
+                :total="staffCount")
+        el-row
+            el-col(:span="24")
+                el-table(:data="pagingStaffInfo" border size="small" :stripe="true")
+                    el-table-column(type="selection" width="35")
+                    el-table-column(prop="employee_id" label="工号" width="50px")
+                    el-table-column(prop="employee_name" label="姓名")
+                    el-table-column(prop="post_name" label="职位" :filters="this.filters_post_name" :filter-method="filterPostName")
+                    el-table-column(prop="department_name" label="部门" :filters="this.filters_department_name" :filter-method="filterDepartmentName")
+                    el-table-column(prop="employee_salary" label="薪水" :filters="this.filters_employee_salary" :filter-method="filterEmployeeSalary")
+                    el-table-column(prop="employee_edu" label="学历")
+                    el-table-column(prop="employee_work_seniority" label="参加工作")
+                    el-table-column(prop="employee_phone" label="联系方式")
+                    el-table-column(label="操作" width="160")
+                        template(slot-scope="scope")
+                            el-button(size="mini" @click="handleEdit(scope.$index, scope.row)") 编辑
+                            el-button(size="mini" type="danger" @click="handleDelete(scope.$index, scope.row)") 删除
 </template>
 
 <script>
@@ -34,13 +41,40 @@
                 'departmentInfo'
             ]),
             staffCount () {
-                return this.allStaffInfo.length
+                return this.staffInfo.length;
             },
+            //计算当前分页的数据
+            pagingStaffInfo(){
+                let currentPageStaffInfo=[];
+                if(this.searchValue===''){
+                    this.init();
+                    let currentPageHeaderIndex=(this.currentPage-1)*this.pageSize;
+                    let currentPageTailIndex=currentPageHeaderIndex+this.pageSize-1;
+                    let tmpIndex=0;
+                    for(let index=currentPageHeaderIndex;index<currentPageTailIndex+1;index++){
+                        currentPageStaffInfo[tmpIndex++]=this.allStaffInfo[index];
+                    }
+                }else{
+                    //currentPageStaffInfo = this.staffInfo = this.staffInfo.filter(this.searchFilter);
+                    let tmp = this.allStaffInfo.filter(this.searchFilter);
+                    //console.log(this.searchValue);
+                    //this.staffInfo.splice(0);
+                    currentPageStaffInfo=[...tmp];
+                    this.staffInfo=[...tmp];
+//                    for(let index in tmp){
+//                        this.staffInfo[index]=currentPageStaffInfo[index]=tmp[index];
+//                    }
+                }
+                return currentPageStaffInfo;
+            }
         },
         data() {
             return {
                 currentPage: 1,
                 pageSize: 20,
+                searchValue:'',
+                staffInfo:[],
+                employee_name_arr:[],
                 filters_post_name:[],
                 filters_department_name:[],
                 filters_employee_salary:[],
@@ -66,23 +100,26 @@
                 console.log(index, row);
             },
             handleSizeChange (val) {
-                console.log(`每页 ${val} 条`);
+                this.pageSize=val;
             },
             handleCurrentChange(val) {
-                console.log(`当前页: ${val}`);
+                this.currentPage=val;
             },
             init(){
+                this.staffInfo=[...this.allStaffInfo];
                 //初始化表头过滤器 :filters
+                this.filters_post_name.splice(0);
                 for(let tmp of this.postInfo){
                     let tmpObj={text:tmp['post_name'],value:tmp['post_name']};
                     this.filters_post_name.push(tmpObj);
                 }
+                this.filters_department_name.splice(0);
                 for(let tmp of this.departmentInfo){
                     let tmpObj={text:tmp['department_name'],value:tmp['department_name']};
                     this.filters_department_name.push(tmpObj);
                 }
 
-
+                this.filters_employee_salary.splice(0);
                 let employee_salary_tmp=[];
                 for(let tmp of this.allStaffInfo){
                     employee_salary_tmp.push(tmp['employee_salary']);
@@ -97,15 +134,39 @@
                     let tmpObj={text:tmp,value:tmp};
                     this.filters_employee_salary.push(tmpObj);
                 }
-
-
             },
+            searchFilter(val) {
+                //console.log(val['employee_name'].indexOf(this.searchValue));
+                //console.log(this.searchValue);
+                return val['employee_name'].indexOf(this.searchValue) > -1;
+            }
         },
         mounted:function () {
             this.init();
-        }
+        },
+        watch: {
+        },
     }
 </script>
-<style scoped>
+<style lang="less" scoped>
+    section{
+        .el-row{
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+            .el-col{
 
+            }
+            .el-col{
+
+            }
+            .el-col{
+                display: flex;
+                justify-content: flex-end;
+                align-items: center;
+            }
+        }
+
+    }
 </style>

@@ -38,7 +38,6 @@
                 color: #333;
             }
             .el-main {
-                background-color: #E9EEF3;
                 color: #333;
             }
             .el-footer {
