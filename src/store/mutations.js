@@ -1,4 +1,5 @@
 import * as types from './types'
+import { formatDate } from '../function/publicFunction'
 export default {
     // [types.ID_QUERY_ERROR](state){
     //     state.idQueryInfo={
@@ -7,6 +8,9 @@ export default {
     // },
 
     [types.GET_ALL_STAFF_INFO](state,data){
+        for(let value of data){
+            value['employee_entry_time']=formatDate(value['employee_entry_time']);
+        }
         state.allStaffInfo = data;
     },
     [types.GET_POST](state,data){

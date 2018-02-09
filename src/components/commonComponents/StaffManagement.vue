@@ -1,20 +1,17 @@
 <template lang="pug">
     section
-        el-row
+        el-row(style="margin:0")
             el-col(:span="6")
-                el-input(prefix-icon="el-icon-search" placeholder="搜索姓名" v-model="searchValue")
+                el-input(prefix-icon="el-icon-search" placeholder="搜索姓名" v-model="searchValue" size="mini")
             el-col(:span="2")
-            el-col(:span="16")
-                el-pagination(@size-change="handleSizeChange",
-                @current-change="handleCurrentChange",
-                :current-page="currentPage",
-                :page-sizes="[10, 20, 50, 100, 200, 500]",
-                :page-size="pageSize"
-                layout="total, sizes, prev, pager, next, jumper",
-                :total="staffCount")
+            el-col
+                el-button(type="primary" size="mini") 新增
+                el-button(size="mini") 导出
+                el-button(type="danger" size="mini") 删除
         el-row
             el-col(:span="24")
-                el-table(:data="pagingStaffInfo" border size="small" :stripe="true")
+                //row-dblclick:双击行事件(row,event),row当前行对象；select:手动勾选box事件，selection：选中的对象数组,row，本次勾选行对象；
+                el-table(:data="pagingStaffInfo" border size="mini" :stripe="true" @row-dblclick="dbclick" @select="selectBox")
                     el-table-column(type="selection" width="35")
                     el-table-column(prop="employee_id" label="工号" width="50px")
                     el-table-column(prop="employee_name" label="姓名")
@@ -28,6 +25,15 @@
                         template(slot-scope="scope")
                             el-button(size="mini" @click="handleEdit(scope.$index, scope.row)") 编辑
                             el-button(size="mini" type="danger" @click="handleDelete(scope.$index, scope.row)") 删除
+        el-row
+            el-col(:span="16")
+                el-pagination(@size-change="handleSizeChange",
+                @current-change="handleCurrentChange",
+                :current-page="currentPage",
+                :page-sizes="[10, 20, 50, 100, 200, 500]",
+                :page-size="pageSize"
+                layout="total, sizes, prev, pager, next, jumper",
+                :total="staffCount")
 </template>
 
 <script>
@@ -71,7 +77,7 @@
         data() {
             return {
                 currentPage: 1,
-                pageSize: 20,
+                pageSize: 10,
                 searchValue:'',
                 staffInfo:[],
                 employee_name_arr:[],
@@ -81,6 +87,10 @@
             }
         },
         methods: {
+            dbclick(row,event){
+                console.log(row);
+                console.log(event);
+            },
             //:filter-method
             filterPostName(value, row, column) {
                 return row['post_name'] === value;
@@ -139,6 +149,9 @@
                 //console.log(val['employee_name'].indexOf(this.searchValue));
                 //console.log(this.searchValue);
                 return val['employee_name'].indexOf(this.searchValue) > -1;
+            },
+            selectBox(selection,row){
+                return selection;
             }
         },
         mounted:function () {
@@ -150,11 +163,10 @@
 </script>
 <style lang="less" scoped>
     section{
-        .el-row{
+        .top{
             display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 10px;
+            justify-content: space-around;
+            align-items: flex-end;
             .el-col{
 
             }
@@ -164,9 +176,22 @@
             .el-col{
                 display: flex;
                 justify-content: flex-end;
+                align-items: flex-end;
+            }
+        }
+        .el-row{
+
+        }
+        .el-row{
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            margin-top: 10px;
+            .el-col{
+                display: flex;
+                justify-content: flex-end;
                 align-items: center;
             }
         }
-
     }
 </style>
