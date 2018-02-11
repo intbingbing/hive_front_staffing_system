@@ -1,6 +1,6 @@
 import * as types from './types'
 import * as api from './api'
-import { formatDate } from '../function/publicFunction'
+import { formatDate } from '../utils/publicFunction'
 import md5 from 'crypto-js/md5'
 import hex from 'crypto-js/enc-hex'
 import router from '../router'
@@ -21,6 +21,15 @@ export default {
         commit(types.GET_DEPARTMENT,res);
     },
 
+    async [types.GET_POST_MAP_DEPARTMENT] ({commit}) {
+        let res = await api.getPostMapDepartment();
+        commit(types.GET_DEPARTMENT,res);
+    },
+
+    async [types.UPDATE_STAFF] ({commit},updateStaffObj) {
+        let res = await api.updateStaff(updateStaffObj);
+        commit(types.UPDATE_STAFF,res);
+    },
 
     async [types.LOG_IN] ({commit},{username,password}) {
         //console.log(`roles:${username}; pass:${password}`);

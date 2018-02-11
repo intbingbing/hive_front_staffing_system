@@ -7,11 +7,16 @@ import 'element-ui/lib/theme-chalk/index.css'
 import '../theme/index.css'
 import store from './store/index.js'
 import App from './App'
+import * as api from './store/api'
+import * as types from './store/types'
 // 点线特效
 import VueParticles from 'vue-particles'
 Vue.use(VueParticles);
 Vue.config.productionTip = false
 Vue.use(ElementUI);
+//api挂载到全局，使用方法：this.$api
+Vue.prototype.$api=api;
+Vue.prototype.$types=types;
 /* eslint-disable no-new */
 new Vue({
   el: '#app',

@@ -1,5 +1,5 @@
 import * as types from './types'
-import { formatDate } from '../function/publicFunction'
+import { formatDate } from '../utils/publicFunction'
 export default {
     // [types.ID_QUERY_ERROR](state){
     //     state.idQueryInfo={
@@ -19,7 +19,12 @@ export default {
     [types.GET_DEPARTMENT](state,data){
         state.departmentInfo = data;
     },
-
+    [types.GET_POST_MAP_DEPARTMENT](state,data){
+        state.postMapDepartmentInfo = data;
+    },
+    [types.UPDATE_STAFF](state,data){
+        state.updateStaffRes = data;
+    },
     [types.LOG_IN](state, {data}){
         state.loginInfo=data;
     },

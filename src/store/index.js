@@ -33,6 +33,8 @@ const state={
     allStaffInfo:[],
     postInfo:[],
     departmentInfo:[],
+    postMapDepartmentInfo:[],
+    updateStaffRes:{},
 };
 
 export default new Vuex.Store({

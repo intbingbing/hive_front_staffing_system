@@ -8,9 +8,9 @@
             ConFooter
 </template>
 <script>
-    import NavigationBar from './commonComponents/NavigationBar'
+    import NavigationBar from './common/NavigationBar'
     import Tabs from './crud/Tabs'
-    import ConFooter from './commonComponents/ConFooter'
+    import ConFooter from './common/ConFooter'
     export default {
         name: 'container',
         data: function () {

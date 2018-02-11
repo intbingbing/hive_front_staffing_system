@@ -14,9 +14,12 @@ const updateSubmitUrl='/update';
 const idDeleteUrl='/iddelete';
 const checkCookieUrl='/checkCookie';
 const clearCookieUrl='/clear_cookie';
-const getAllStaffInfoUrl='/user/hive_read_all_employee';
-const getPostUrl='/user/hive_get_post';
-const getDepartmentUrl='/user/hive_get_department';
+const getAllStaffInfoUrl='/user/hive_all_employee';
+const getPostUrl='/user/hive_post';
+const getDepartmentUrl='/user/hive_department';
+const getPostMapDepartmentUrl='/user/hive_post_map_department';
+const getPostCascaderUrl='/user/hive_post_cascader';
+const postStaffUrl='/user/hive_employee';
 
 
 axios.defaults.withCredentials = true;
@@ -34,6 +37,19 @@ export async function getDeportment(){
     return (await axios.get(`${baseUrl}${getDepartmentUrl}`)).data;
 }
 
+export async function getPostMapDepartment(){
+    return (await axios.get(`${baseUrl}${getPostMapDepartmentUrl}`)).data;
+}
+//后端处理好的级联选择器所需要的json格式，post映射department
+export async function getPostCascader(){
+    return (await axios.get(`${baseUrl}${getPostCascaderUrl}`)).data;
+}
+
+export async function updateStaff(updateStaff){
+    return (await axios.post(`${baseUrl}${postStaffUrl}`,qs.stringify(
+        updateStaff
+    ))).data;
+}
 //V1.0
 export async function login(username,secret){
     return (await axios.post(`${baseUrl}${loginUrl}`,qs.stringify({

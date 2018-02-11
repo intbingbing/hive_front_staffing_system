@@ -20,5 +20,7 @@ export const DECREMENT='DECREMENT';
 export const GET_ALL_STAFF_INFO='GET_ALL_STAFF_INFO';
 export const GET_POST='GET_POST';
 export const GET_DEPARTMENT='GET_DEPARTMENT';
+export const GET_POST_MAP_DEPARTMENT='GET_POST_MAP_DEPARTMENT'; //部门与职位的映射表，用的较多，直接后台生成
+export const UPDATE_STAFF='UPDATE_STAFF';
 
 

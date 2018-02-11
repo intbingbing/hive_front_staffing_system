@@ -10,7 +10,7 @@
             el-footer(height="20px") Footer
 </template>
 <script>
-    import AdminAside from '../commonComponents/AdminAside.vue'
+    import AdminAside from '../common/AdminAside.vue'
     export default {
         components:{
             AdminAside

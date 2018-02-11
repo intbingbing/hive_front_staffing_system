@@ -34,12 +34,18 @@
                 :page-size="pageSize"
                 layout="total, sizes, prev, pager, next, jumper",
                 :total="staffCount")
+        el-row
+            DialogBox(ref="childMethod")
 </template>
 
 <script>
-    import * as types from '../../store/types'
+    import * as types from '../../../store/types'
+    import DialogBox from './DialogBox.vue'
     import { mapState } from 'vuex'
     export default {
+        components:{
+            DialogBox
+        },
         computed:{
             ...mapState([
                 'allStaffInfo',
@@ -88,8 +94,9 @@
         },
         methods: {
             dbclick(row,event){
-                console.log(row);
-                console.log(event);
+                this.$refs.childMethod.editStaffInfo(row);
+                //console.log(row);
+                //console.log(event);
             },
             //:filter-method
             filterPostName(value, row, column) {

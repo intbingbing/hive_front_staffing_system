@@ -6,7 +6,7 @@ const Login = () => import('@/components/auth/Login');
 const userContainer = () => import('@/components/userContainer');
 const Test = () => import('@/components/test/TestParent');
 const UserContainer = () => import('@/components/roles/UserContainer');
-const StaffManagement = () => import('@/components/commonComponents/StaffManagement');
+const StaffManagement = () => import('@/components/page/StaffManagement/StaffManagement');
 const A = () => import('@/components/A');
 const B = () => import('@/components/B');
 
@@ -31,9 +31,12 @@ const router = new Router({
         },
         {
             path:'/user',
-            name:'user',
             component:UserContainer,
             children:[
+                {
+                    path:'',
+                    redirect:'announcement'
+                },
                 {
                     path:'announcement',
                     name:'announcement',
