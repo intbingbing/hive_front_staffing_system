@@ -5,7 +5,7 @@
                 el-input(prefix-icon="el-icon-search" placeholder="搜索姓名" v-model="searchValue" size="mini")
             el-col(:span="2")
             el-col
-                el-button(type="primary" size="mini") 新增
+                el-button(type="primary" size="mini" @click="createStaff") 新增
                 el-button(size="mini") 导出
                 el-button(type="danger" size="mini") 删除
         el-row
@@ -23,7 +23,7 @@
                     el-table-column(prop="employee_phone" label="联系方式")
                     el-table-column(label="操作" width="160")
                         template(slot-scope="scope")
-                            el-button(size="mini" @click="handleEdit(scope.$index, scope.row)") 编辑
+                            el-button(size="mini" @click="dbclick(scope.row)") 编辑
                             el-button(size="mini" type="danger" @click="handleDelete(scope.$index, scope.row)") 删除
         el-row
             el-col(:span="16")
@@ -36,24 +36,33 @@
                 :total="staffCount")
         el-row
             DialogBox(ref="childMethod")
+        el-row
+            CreateDialogBox(ref="creaeteChildMethod")
 </template>
 
 <script>
     import * as types from '../../../store/types'
-    import DialogBox from './DialogBox.vue'
+    import DialogBox from './UpdateDialogBox.vue'
+    import CreateDialogBox from './CreateDialogBox.vue'
     import { mapState } from 'vuex'
     export default {
         components:{
-            DialogBox
+            DialogBox,
+            CreateDialogBox
         },
         computed:{
             ...mapState([
                 'allStaffInfo',
                 'postInfo',
-                'departmentInfo'
+                'departmentInfo',
+                'createStaffRes',
+                'deleteStaffRes',
             ]),
             staffCount () {
                 return this.staffInfo.length;
+            },
+            pageCount(){
+                return parseInt(this.staffCount/this.pageSize)+1;
             },
             //计算当前分页的数据
             pagingStaffInfo(){
@@ -61,7 +70,12 @@
                 if(this.searchValue===''){
                     this.init();
                     let currentPageHeaderIndex=(this.currentPage-1)*this.pageSize;
-                    let currentPageTailIndex=currentPageHeaderIndex+this.pageSize-1;
+                    let currentPageTailIndex='';
+                    if(this.currentPage===this.pageCount){
+                        currentPageTailIndex = currentPageHeaderIndex + this.staffCount % this.pageSize - 1;
+                    }else{
+                        currentPageTailIndex=currentPageHeaderIndex+this.pageSize-1;
+                    }
                     let tmpIndex=0;
                     for(let index=currentPageHeaderIndex;index<currentPageTailIndex+1;index++){
                         currentPageStaffInfo[tmpIndex++]=this.allStaffInfo[index];
@@ -90,13 +104,17 @@
                 filters_post_name:[],
                 filters_department_name:[],
                 filters_employee_salary:[],
+                emptyStaff:{},
             }
         },
         methods: {
-            dbclick(row,event){
+            dbclick(row){
                 this.$refs.childMethod.editStaffInfo(row);
                 //console.log(row);
                 //console.log(event);
+            },
+            createStaff(){
+                this.$refs.creaeteChildMethod.createStaff();
             },
             //:filter-method
             filterPostName(value, row, column) {
@@ -109,12 +127,46 @@
                 return row['employee_salary'] === value;
             },
 
-            handleEdit(index, row) {
-                row['employee_name']='郑凤'
-                console.log(this.allStaffInfo[0]);
+            handleEdit(scope) {
+                console.log(scope);
+                //console.log(row);
             },
             handleDelete(index, row) {
-                console.log(index, row);
+                this.$confirm('此操作将永久删除该员工, 是否继续?', '警告', {
+                    confirmButtonText: '确定',
+                    cancelButtonText: '取消',
+                    type: 'warning'
+                }).then(async () => {
+                    await this.$store.dispatch(types.DELETE_STAFF,{id:row.employee_id});
+                    this.$store.dispatch(types.GET_ALL_STAFF_INFO);
+                    this.$store.dispatch(types.GET_POST_MAP_DEPARTMENT);
+                    if(this.deleteStaffRes.statusCode==='200240'){
+                        this.$notify.success({
+                            title: '删除成功！',
+                            duration:2000,
+                        });
+                    }else if(this.deleteStaffRes.statusCode==='40241'){
+                        this.$notify.error({
+                            title: '删除的值不存在！',
+                            duration:2000,
+                        });
+                    }else{
+                        this.$notify.error({
+                            title: '其他错误！',
+                            message: this.deleteStaffRes,
+                            duration:6000,
+                        });
+                    }
+
+                }).catch(() => {
+                    this.$message({
+                        type: 'info',
+                        message: '已取消删除',
+                        duration:2000
+                    });
+                });
+
+
             },
             handleSizeChange (val) {
                 this.pageSize=val;

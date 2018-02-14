@@ -19,8 +19,10 @@ const getPostUrl='/user/hive_post';
 const getDepartmentUrl='/user/hive_department';
 const getPostMapDepartmentUrl='/user/hive_post_map_department';
 const getPostCascaderUrl='/user/hive_post_cascader';
-const postStaffUrl='/user/hive_employee';
-
+const readStaffUrl='/user/hive_employee';
+const updateStaffUrl='/user/hive_employee';
+const createStaffUrl='/user/hive_employee';
+const deleteStaffUrl='/user/hive_employee';
 
 axios.defaults.withCredentials = true;
 
@@ -45,11 +47,22 @@ export async function getPostCascader(){
     return (await axios.get(`${baseUrl}${getPostCascaderUrl}`)).data;
 }
 
-export async function updateStaff(updateStaff){
-    return (await axios.post(`${baseUrl}${postStaffUrl}`,qs.stringify(
-        updateStaff
+export async function updateStaff(updateStaffObj){
+    return (await axios.put(`${baseUrl}${updateStaffUrl}`,qs.stringify(
+        updateStaffObj
     ))).data;
 }
+
+export async function createStaff(createStaffObj){
+    return (await axios.post(`${baseUrl}${createStaffUrl}`,qs.stringify(
+        createStaffObj
+    ))).data;
+}
+
+export async function deleteStaff(deleteStaffIndexObj){
+    return (await axios.delete(`${baseUrl}${deleteStaffUrl}/${deleteStaffIndexObj.id}`)).data;
+}
+
 //V1.0
 export async function login(username,secret){
     return (await axios.post(`${baseUrl}${loginUrl}`,qs.stringify({

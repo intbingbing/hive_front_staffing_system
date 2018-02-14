@@ -31,6 +31,9 @@
                 }],
                 value: ''
             }
+        },
+        mounted:function () {
+            //console.log(this.prototype)
         }
     }
 </script>

@@ -34,7 +34,10 @@ const state={
     postInfo:[],
     departmentInfo:[],
     postMapDepartmentInfo:[],
-    updateStaffRes:{},
+    postCascader:{},
+    updateStaffRes:[],
+    createStaffRes:{},
+    deleteStaffRes:{},
 };
 
 export default new Vuex.Store({

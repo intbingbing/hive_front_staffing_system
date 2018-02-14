@@ -21,6 +21,11 @@ export default {
         commit(types.GET_DEPARTMENT,res);
     },
 
+    async [types.GET_POST_CASCADER] ({commit}) {
+        let res = await api.getPostCascader();
+        commit(types.GET_POST_CASCADER,res);
+    },
+
     async [types.GET_POST_MAP_DEPARTMENT] ({commit}) {
         let res = await api.getPostMapDepartment();
         commit(types.GET_DEPARTMENT,res);
@@ -29,6 +34,16 @@ export default {
     async [types.UPDATE_STAFF] ({commit},updateStaffObj) {
         let res = await api.updateStaff(updateStaffObj);
         commit(types.UPDATE_STAFF,res);
+    },
+
+    async [types.CREATE_STAFF] ({commit},createStaffObj) {
+        let res = await api.createStaff(createStaffObj);
+        commit(types.CREATE_STAFF,res);
+    },
+
+    async [types.DELETE_STAFF] ({commit},deleteStaffIndexObj) {
+        let res = await api.deleteStaff(deleteStaffIndexObj);
+        commit(types.DELETE_STAFF,res);
     },
 
     async [types.LOG_IN] ({commit},{username,password}) {

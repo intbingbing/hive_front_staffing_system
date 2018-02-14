@@ -59,6 +59,7 @@
                 'postInfo',
                 'departmentInfo',
                 'updateStaffRes',
+                'postCascader',
             ]),
 //            getDepartmentIDByPost(){
 //                for (let departmentValue of this.departmentInfo){
@@ -70,7 +71,6 @@
         },
         data() {
             return {
-                postCascader:[],
                 defaultPostMapDepartment:[],
                 showDialog: false,
                 departmentID:'',
@@ -98,6 +98,7 @@
                 this.tmpStaffInfo["department_id"] = this.defaultPostMapDepartment[0];
                 this.tmpStaffInfo["post_id"] = this.defaultPostMapDepartment[1];
                 await this.$store.dispatch(this.$types.UPDATE_STAFF,this.tmpStaffInfo);
+                await this.$store.dispatch(this.$types.GET_ALL_STAFF_INFO);
                 if(this.updateStaffRes.statusCode==='200220'){
                     this.$notify.success({
                         title: '更新成功！',
@@ -120,8 +121,7 @@
         watch:{
         },
         //异步请求
-        async mounted(){
-            this.postCascader=await this.$api.getPostCascader();
+        mounted(){
         }
     };
 </script>

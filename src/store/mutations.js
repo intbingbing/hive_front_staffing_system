@@ -19,11 +19,20 @@ export default {
     [types.GET_DEPARTMENT](state,data){
         state.departmentInfo = data;
     },
+    [types.GET_POST_CASCADER](state,data){
+        state.postCascader = data;
+    },
     [types.GET_POST_MAP_DEPARTMENT](state,data){
         state.postMapDepartmentInfo = data;
     },
     [types.UPDATE_STAFF](state,data){
         state.updateStaffRes = data;
+    },
+    [types.CREATE_STAFF](state,data){
+        state.createStaffRes = data;
+    },
+    [types.DELETE_STAFF](state,data){
+        state.deleteStaffRes = data;
     },
     [types.LOG_IN](state, {data}){
         state.loginInfo=data;
