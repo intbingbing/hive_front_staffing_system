@@ -43,12 +43,16 @@
                         el-form-item(label="身份证")
                             el-input(v-model="tmpStaffInfo.employee_identity_card_number" clearable)
                 el-row(:gutter="20")
-                    el-col(:span="24")
+                    el-col(:span="8")
+                        el-form-item(label="权限")
+                            el-select(v-model="tmpStaffInfo.permissions_id")
+                                el-option(v-for="item in permissionsSelect" :key="item.value" :label="item.label" :value="item.value")
+                    el-col(:span="16")
                         el-form-item(label="住址")
                             el-input(v-model="tmpStaffInfo.employee_address" clearable)
             div(slot="footer" class="dialog-footer")
                 el-button(size="small" @click="showDialog=false") 取 消
-                el-button(type="primary" size="small" @click="submitChange") 确 定
+                el-button(type="primary" size="small" @click="submitCreate") 确 定
 </template>
 <script>
     import { mapState } from 'vuex'
@@ -60,6 +64,9 @@
                 'departmentInfo',
                 'updateStaffRes',
                 'postCascader',
+                'edu',
+                'permissionsSelect',
+                'createStaffRes'
             ]),
 //            getDepartmentIDByPost(){
 //                for (let departmentValue of this.departmentInfo){
@@ -74,7 +81,6 @@
                 createPostCascader: [],
                 postMapDepartment:[],
                 showDialog: false,
-                edu: ['博士', '硕士', '本科', '大专', '中专', '高中', '初中', '其他'],
                 confirmedStaffInfo: {},
                 tmpStaffInfo: {},
             };
@@ -84,12 +90,29 @@
                 this.showDialog = true;
             },
             handleChange(val) {
-                console.log(val);
+                //console.log(val);
             },
-            async submitChange() {
+            async submitCreate() {
                 this.tmpStaffInfo["department_id"] = this.createPostCascader[0];
-                this.tmpStaffInfo["employee_id"] = this.createPostCascader[1];
-                console.log(this.tmpStaffInfo);
+                this.tmpStaffInfo["post_id"] = this.createPostCascader[1];
+                //console.log(this.tmpStaffInfo);
+                await this.$store.dispatch(this.$types.CREATE_STAFF,this.tmpStaffInfo);
+                await this.$store.dispatch(this.$types.GET_ALL_STAFF_INFO);
+                this.showDialog = false;
+                if(this.createStaffRes.statusCode==='200210'){
+                    this.$notify.success({
+                        title: '创建成功！',
+                        message:`员工ID：${this.createStaffRes.data.employee_id}`,
+                        duration:4000,
+                    });
+                }else{
+                    this.$notify.error({
+                        title: '其他错误！',
+                        message: this.updateStaffRes,
+                        duration:6000,
+                    });
+                }
+                //console.log(this.tmpStaffInfo);
 //                this.showDialog=false;
 //                //defaultPostMapDepartment,职位绑定的值赋给tmpStaffInfo完成格式化
 //                this.tmpStaffInfo["department_id"] = this.defaultPostMapDepartment[0];

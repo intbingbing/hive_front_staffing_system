@@ -7,6 +7,10 @@ export default {
     //     }
     // },
 
+    [types.TEST](state,data){
+        state.test = data;
+    },
+
     [types.GET_ALL_STAFF_INFO](state,data){
         for(let value of data){
             value['employee_entry_time']=formatDate(value['employee_entry_time']);

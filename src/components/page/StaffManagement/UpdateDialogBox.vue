@@ -43,7 +43,11 @@
                         el-form-item(label="身份证")
                             el-input(v-model="tmpStaffInfo.employee_identity_card_number" clearable)
                 el-row(:gutter="20")
-                    el-col(:span="24")
+                    el-col(:span="8")
+                        el-form-item(label="权限")
+                            el-select(v-model="tmpStaffInfo.permissions_id")
+                                el-option(v-for="item in permissionsSelect" :key="item.value" :label="item.label" :value="item.value")
+                    el-col(:span="16")
                         el-form-item(label="住址")
                             el-input(v-model="tmpStaffInfo.employee_address" clearable)
             div(slot="footer" class="dialog-footer")
@@ -60,6 +64,8 @@
                 'departmentInfo',
                 'updateStaffRes',
                 'postCascader',
+                'edu',
+                'permissionsSelect'
             ]),
 //            getDepartmentIDByPost(){
 //                for (let departmentValue of this.departmentInfo){
@@ -74,7 +80,6 @@
                 defaultPostMapDepartment:[],
                 showDialog: false,
                 departmentID:'',
-                edu:['博士','硕士','本科','大专','中专','高中','初中','其他'],
                 confirmedStaffInfo:{},
                 tmpStaffInfo:{},
             };

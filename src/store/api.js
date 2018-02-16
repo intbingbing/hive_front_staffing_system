@@ -23,10 +23,15 @@ const readStaffUrl='/user/hive_employee';
 const updateStaffUrl='/user/hive_employee';
 const createStaffUrl='/user/hive_employee';
 const deleteStaffUrl='/user/hive_employee';
+const testUrl='/user/hive_test';
 
 axios.defaults.withCredentials = true;
 
 //V2.0
+export async function test(index){
+    return (await axios.get(`${baseUrl}${testUrl}/${index}`)).data;
+}
+
 export async function getAllStaffInfo(){
     return (await axios.get(`${baseUrl}${getAllStaffInfoUrl}`)).data;
 }

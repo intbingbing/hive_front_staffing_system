@@ -25,3 +25,4 @@ export const GET_POST_CASCADER='GET_POST_CASCADER'; //部门与职位的级联�
 export const UPDATE_STAFF='UPDATE_STAFF';
 export const DELETE_STAFF='DELETE_STAFF';
 export const CREATE_STAFF='CREATE_STAFF';
+export const TEST='TEST';

@@ -38,6 +38,9 @@ const state={
     updateStaffRes:[],
     createStaffRes:{},
     deleteStaffRes:{},
+    edu:['博士','硕士','本科','大专','中专','高中','初中','其他'],
+    permissionsSelect:[{value:1,label:'超级管理员'},{value:2,label:'管理员'},{value:3,label:'普通用户'}],
+    test:''
 };
 
 export default new Vuex.Store({

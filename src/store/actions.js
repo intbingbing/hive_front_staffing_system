@@ -6,6 +6,11 @@ import hex from 'crypto-js/enc-hex'
 import router from '../router'
 
 export default {
+    async [types.TEST]({commit},index){
+        let res = await api.test(index);
+        commit(types.TEST,res);
+    },
+
     async [types.GET_ALL_STAFF_INFO] ({commit}) {
         let res = await api.getAllStaffInfo();
         commit(types.GET_ALL_STAFF_INFO,res);
@@ -37,6 +42,7 @@ export default {
     },
 
     async [types.CREATE_STAFF] ({commit},createStaffObj) {
+        createStaffObj.employee_entry_time = formatDate(createStaffObj.employee_entry_time);
         let res = await api.createStaff(createStaffObj);
         commit(types.CREATE_STAFF,res);
     },

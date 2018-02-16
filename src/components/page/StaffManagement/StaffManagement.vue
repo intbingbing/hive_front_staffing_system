@@ -6,17 +6,19 @@
             el-col(:span="2")
             el-col
                 el-button(type="primary" size="mini" @click="createStaff") 新增
-                el-button(size="mini") 导出
-                el-button(type="danger" size="mini") 删除
+                el-button(size="mini" @click="handleExport") 导出
+                el-button(type="danger" size="mini" @click="batchDelete") 删除
         el-row
             el-col(:span="24")
                 //row-dblclick:双击行事件(row,event),row当前行对象；select:手动勾选box事件，selection：选中的对象数组,row，本次勾选行对象；
-                el-table(:data="pagingStaffInfo" border size="mini" :stripe="true" @row-dblclick="dbclick" @select="selectBox")
+                el-table(:data="pagingStaffInfo" border size="mini"
+                    stripe @row-dblclick="dbclick" @selection-change="selectBox")
                     el-table-column(type="selection" width="35")
                     el-table-column(prop="employee_id" label="工号" width="50px")
                     el-table-column(prop="employee_name" label="姓名")
                     el-table-column(prop="post_name" label="职位" :filters="this.filters_post_name" :filter-method="filterPostName")
                     el-table-column(prop="department_name" label="部门" :filters="this.filters_department_name" :filter-method="filterDepartmentName")
+                    el-table-column(:formatter="permissionsFormat" label="权限")
                     el-table-column(prop="employee_salary" label="薪水" :filters="this.filters_employee_salary" :filter-method="filterEmployeeSalary")
                     el-table-column(prop="employee_edu" label="学历")
                     el-table-column(prop="employee_work_seniority" label="参加工作")
@@ -105,9 +107,48 @@
                 filters_department_name:[],
                 filters_employee_salary:[],
                 emptyStaff:{},
+                selectArr:[],
+                selectEmployeeArr:[],
             }
         },
         methods: {
+            async test(){
+//                //console.time('T');
+//                console.log('up');
+//                for(let i=0;i<1;i++){
+//                    let a = await this.$store.dispatch(types.TEST,i);
+//                    console.log(a);
+//                }
+//                let b = await this.$store.dispatch(types.TEST,10);
+//                console.log(b);
+//                console.log('down');
+            },
+            batchDelete(){
+                if(this.selectArr.length===0) {
+                    this.$notify.error({title: '未选中数据！', duration: 2000,});
+                    return 0
+                }
+                this.$confirm('此操作将批量删除员工, 是否继续?', '警告', {
+                    confirmButtonText: '确定',
+                    cancelButtonText: '取消',
+                    type: 'warning'
+                }).then(async ()=>{
+                    //并行异步请求
+                    let promises = this.selectArr.map(id => this.$store.dispatch(types.DELETE_STAFF,{id}));
+                    for(let promise of promises){
+                        await promise;
+                    }
+                    await this.$store.dispatch(types.GET_ALL_STAFF_INFO);
+
+                    if(this.deleteStaffRes.statusCode==='200240'){
+                        this.$notify.success({title: '删除成功！', duration:2000,});
+                    }else if(this.deleteStaffRes.statusCode==='40241'){
+                        this.$notify.error({title: '删除的值不存在！', duration:2000,});
+                    }else{
+                        this.$notify.error({title: '其他错误！', message: this.deleteStaffRes, duration:6000,});
+                    }
+                }).catch(()=>{})
+            },
             dbclick(row){
                 this.$refs.childMethod.editStaffInfo(row);
                 //console.log(row);
@@ -115,6 +156,32 @@
             },
             createStaff(){
                 this.$refs.creaeteChildMethod.createStaff();
+            },
+            //导出excel
+            handleExport(){
+                console.log(this.selectArr);
+                if(this.selectArr.length===0){
+                    this.$notify.error({title: '未选中数据！', duration: 2000,});
+                    return 0
+                }else{
+                    this.exportExcel();
+                }
+            },
+            exportExcel() {
+                import('@/vendor/Export2Excel').then(excel => {
+                    const tHeader = ['ID', '姓名', '职位', '部门', '权限', '薪水',
+                        '学历', '专业', '工作年限', '入职时间', '联系方式', '身份证号码', '住址'];
+                    const filterVal = ['employee_id', 'employee_name', 'post_name', 'department_name',
+                        'permissions_des', 'employee_salary', 'employee_edu', 'employee_professional',
+                        'employee_work_seniority', 'employee_entry_time', 'employee_phone',
+                        'employee_identity_card_number','employee_address'];
+                    const list = this.selectEmployeeArr;
+                    const data = this.formatJson(filterVal, list);
+                    excel.export_json_to_excel(tHeader, data, '员工信息表')
+                })
+            },
+            formatJson(filterVal, jsonData) {
+                return jsonData.map(v => filterVal.map(j => v[j]))
             },
             //:filter-method
             filterPostName(value, row, column) {
@@ -126,9 +193,17 @@
             filterEmployeeSalary(value, row, column) {
                 return row['employee_salary'] === value;
             },
-
+            permissionsFormat(row){
+                if(row.permissions_id===1){
+                    return '超级管理员'
+                }else if(row.permissions_id===2){
+                    return '管理员'
+                }else{
+                    return '普通用户'
+                }
+            },
             handleEdit(scope) {
-                console.log(scope);
+                //console.log(scope);
                 //console.log(row);
             },
             handleDelete(index, row) {
@@ -141,30 +216,14 @@
                     this.$store.dispatch(types.GET_ALL_STAFF_INFO);
                     this.$store.dispatch(types.GET_POST_MAP_DEPARTMENT);
                     if(this.deleteStaffRes.statusCode==='200240'){
-                        this.$notify.success({
-                            title: '删除成功！',
-                            duration:2000,
-                        });
+                        this.$notify.success({title: '删除成功！', duration:2000,});
                     }else if(this.deleteStaffRes.statusCode==='40241'){
-                        this.$notify.error({
-                            title: '删除的值不存在！',
-                            duration:2000,
-                        });
+                        this.$notify.error({title: '删除的值不存在！', duration:2000,});
                     }else{
-                        this.$notify.error({
-                            title: '其他错误！',
-                            message: this.deleteStaffRes,
-                            duration:6000,
-                        });
+                        this.$notify.error({title: '其他错误！', message: this.deleteStaffRes, duration:6000,});
                     }
 
-                }).catch(() => {
-                    this.$message({
-                        type: 'info',
-                        message: '已取消删除',
-                        duration:2000
-                    });
-                });
+                }).catch();
 
 
             },
@@ -210,8 +269,15 @@
                 return val['employee_name'].indexOf(this.searchValue) > -1;
             },
             selectBox(selection,row){
-                return selection;
-            }
+                //row:当前选中的行对象；selection:选中的对象数组
+                let employee_id_arr=[];
+                for(let val of selection){
+                    //console.log(val);
+                    employee_id_arr.push(val['employee_id']);
+                }
+                this.selectArr=employee_id_arr;
+                this.selectEmployeeArr=selection;
+            },
         },
         mounted:function () {
             this.init();
