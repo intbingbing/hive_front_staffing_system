@@ -43,6 +43,7 @@
                 this.$store.dispatch(types.GET_DEPARTMENT);
                 this.$store.dispatch(types.GET_POST_MAP_DEPARTMENT);
                 this.$store.dispatch(types.GET_POST_CASCADER);
+                this.$store.dispatch(types.TEST,9);
             },
         },
         mounted:function () {

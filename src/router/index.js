@@ -7,6 +7,7 @@ const userContainer = () => import('@/components/userContainer');
 const Test = () => import('@/components/test/TestParent');
 const UserContainer = () => import('@/components/roles/UserContainer');
 const StaffManagement = () => import('@/components/page/StaffManagement/StaffManagement');
+const PostDepartmentManagement = () => import('@/components/page/PostDepartmentManagement/Index');
 const A = () => import('@/components/A');
 const B = () => import('@/components/B');
 
@@ -51,6 +52,15 @@ const router = new Router({
                     path:'personnel_management/staff_management',
                     name:'staff_management',
                     component:StaffManagement
+                },
+                {
+                    path:'personnel_management/department_management',
+                    name:'department_management',
+                    component:PostDepartmentManagement
+                },
+                {
+                    path:'personnel_management/position_management',
+                    redirect:'personnel_management/department_management'
                 },
             ]
         }

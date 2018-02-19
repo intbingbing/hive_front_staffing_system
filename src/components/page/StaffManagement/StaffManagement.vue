@@ -39,7 +39,7 @@
         el-row
             DialogBox(ref="childMethod")
         el-row
-            CreateDialogBox(ref="creaeteChildMethod")
+            CreateDialogBox(ref="createChildMethod")
 </template>
 
 <script>
@@ -155,7 +155,7 @@
                 //console.log(event);
             },
             createStaff(){
-                this.$refs.creaeteChildMethod.createStaff();
+                this.$refs.createChildMethod.createStaff();
             },
             //导出excel
             handleExport(){

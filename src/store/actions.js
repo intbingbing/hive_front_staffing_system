@@ -33,7 +33,7 @@ export default {
 
     async [types.GET_POST_MAP_DEPARTMENT] ({commit}) {
         let res = await api.getPostMapDepartment();
-        commit(types.GET_DEPARTMENT,res);
+        commit(types.GET_POST_MAP_DEPARTMENT,res);
     },
 
     async [types.UPDATE_STAFF] ({commit},updateStaffObj) {
