@@ -185,10 +185,10 @@
             },
             //:filter-method
             filterPostName(value, row, column) {
-                return row['post_name'] === value;
+                return row['association_id'] === value;
             },
             filterDepartmentName(value, row, column) {
-                return row['department_name'] === value;
+                return row['department_id'] === value;
             },
             filterEmployeeSalary(value, row, column) {
                 return row['employee_salary'] === value;
@@ -223,7 +223,7 @@
                         this.$notify.error({title: '其他错误！', message: this.deleteStaffRes, duration:6000,});
                     }
 
-                }).catch();
+                }).catch(()=>{});
 
 
             },
@@ -238,12 +238,12 @@
                 //初始化表头过滤器 :filters
                 this.filters_post_name.splice(0);
                 for(let tmp of this.postInfo){
-                    let tmpObj={text:tmp['post_name'],value:tmp['post_name']};
+                    let tmpObj={text:tmp['post_name'],value:tmp['association_id']};
                     this.filters_post_name.push(tmpObj);
                 }
                 this.filters_department_name.splice(0);
                 for(let tmp of this.departmentInfo){
-                    let tmpObj={text:tmp['department_name'],value:tmp['department_name']};
+                    let tmpObj={text:tmp['post_name'],value:tmp['association_id']};
                     this.filters_department_name.push(tmpObj);
                 }
 

@@ -13,7 +13,7 @@
                             :options="postCascader"
                             v-model="defaultPostMapDepartment"
                             @change="handleChange"
-                            separator=" - "
+                            separator="-"
                             clearable
                             filterable)
                     el-col(:span="8")
@@ -64,6 +64,7 @@
                 'departmentInfo',
                 'updateStaffRes',
                 'postCascader',
+                'postMapDepartmentInfo',
                 'edu',
                 'permissionsSelect'
             ]),
@@ -92,16 +93,16 @@
                     this.$set(this.confirmedStaffInfo,key,row[key]);
                     this.$set(this.tmpStaffInfo,key,row[key]);
                 }
-                this.defaultPostMapDepartment = [this.tmpStaffInfo.department_id,this.tmpStaffInfo.post_id]
+                this.defaultPostMapDepartment = (this.$utils.defaultCascaderArr(this.tmpStaffInfo.association_id,this.postMapDepartmentInfo)).reverse();
             },
             handleChange(val){
                 console.log(val);
             },
             async submitChange(){
                 this.showDialog=false;
+                this.tmpStaffInfo["association_id"] = this.defaultPostMapDepartment[this.defaultPostMapDepartment.length-1];
+                console.log(this.tmpStaffInfo);
                 //defaultPostMapDepartment,职位绑定的值赋给tmpStaffInfo完成格式化
-                this.tmpStaffInfo["department_id"] = this.defaultPostMapDepartment[0];
-                this.tmpStaffInfo["post_id"] = this.defaultPostMapDepartment[1];
                 await this.$store.dispatch(this.$types.UPDATE_STAFF,this.tmpStaffInfo);
                 await this.$store.dispatch(this.$types.GET_ALL_STAFF_INFO);
                 if(this.updateStaffRes.statusCode==='200220'){

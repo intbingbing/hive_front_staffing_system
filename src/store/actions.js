@@ -37,6 +37,7 @@ export default {
     },
 
     async [types.UPDATE_STAFF] ({commit},updateStaffObj) {
+        updateStaffObj.employee_entry_time = formatDate(updateStaffObj.employee_entry_time);
         let res = await api.updateStaff(updateStaffObj);
         commit(types.UPDATE_STAFF,res);
     },

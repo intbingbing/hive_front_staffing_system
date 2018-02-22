@@ -93,8 +93,7 @@
                 //console.log(val);
             },
             async submitCreate() {
-                this.tmpStaffInfo["department_id"] = this.createPostCascader[0];
-                this.tmpStaffInfo["post_id"] = this.createPostCascader[1];
+                this.tmpStaffInfo["association_id"] = this.createPostCascader[this.createPostCascader.length-1];
                 //console.log(this.tmpStaffInfo);
                 await this.$store.dispatch(this.$types.CREATE_STAFF,this.tmpStaffInfo);
                 await this.$store.dispatch(this.$types.GET_ALL_STAFF_INFO);
@@ -112,36 +111,11 @@
                         duration:6000,
                     });
                 }
-                //console.log(this.tmpStaffInfo);
-//                this.showDialog=false;
-//                //defaultPostMapDepartment,职位绑定的值赋给tmpStaffInfo完成格式化
-//                this.tmpStaffInfo["department_id"] = this.defaultPostMapDepartment[0];
-//                this.tmpStaffInfo["post_id"] = this.defaultPostMapDepartment[1];
-//                await this.$store.dispatch(this.$types.UPDATE_STAFF,this.tmpStaffInfo);
-//                await this.$store.dispatch(this.$types.GET_ALL_STAFF_INFO);
-//                if(this.updateStaffRes.statusCode==='200220'){
-//                    this.$notify.success({
-//                        title: '更新成功！',
-//                        duration:2000,
-//                    });
-//                }else if(this.updateStaffRes.statusCode==='40221'){
-//                    this.$notify.error({
-//                        title: '没有要更新的值！',
-//                        duration:2000,
-//                    });
-//                }else{
-//                    this.$notify.error({
-//                        title: '其他错误！',
-//                        message: this.updateStaffRes,
-//                        duration:6000,
-//                    });
-//                }
-//            }
             },
             watch: {},
             //异步请求
             mounted() {
-                this.postCascader = this.$api.getPostCascader();
+                this.$store.dispatch(types.GET_POST_CASCADER);
             }
         }
     }

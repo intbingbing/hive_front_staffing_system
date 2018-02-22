@@ -9,6 +9,7 @@ import store from './store/index.js'
 import App from './App'
 import * as api from './store/api'
 import * as types from './store/types'
+import * as utils from './utils/publicFunction'
 // 点线特效
 import VueParticles from 'vue-particles'
 Vue.use(VueParticles);
@@ -17,6 +18,7 @@ Vue.use(ElementUI);
 //api挂载到全局，使用方法：this.$api
 Vue.prototype.$api=api;
 Vue.prototype.$types=types;
+Vue.prototype.$utils=utils;
 /* eslint-disable no-new */
 new Vue({
     el: '#app',

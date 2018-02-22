@@ -27,6 +27,15 @@ export default {
         state.postCascader = data;
     },
     [types.GET_POST_MAP_DEPARTMENT](state,data){
+        state.postInfo=[];
+        state.departmentInfo=[];
+        for(let val of data){
+            if(val["association_is_department"]===0){
+                state.postInfo.push(val)
+            }else{
+                state.departmentInfo.push(val);
+            }
+        }
         state.postMapDepartmentInfo = data;
     },
     [types.UPDATE_STAFF](state,data){
