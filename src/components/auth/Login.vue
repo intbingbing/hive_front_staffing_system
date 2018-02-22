@@ -4,7 +4,7 @@
         vue-particles.particles(color="#fff" :particleSize="2" linesColor="#fff" clickMode="repulse" :moveSpeed="2")
         el-card.login-form
             div
-                img(src="../../../assets/logo.png")
+                img(src="../../assets/logo.png")
                 h1 Vue示例
             div#fill
             el-form(:model="loginForm" :rules="rules" ref="loginForm")
@@ -21,7 +21,7 @@
 </template>
 
 <script>
-    import * as types from '../../../store/types'
+    import * as types from '../../store/types'
     import { mapState } from 'vuex'
     export default {
         computed:{

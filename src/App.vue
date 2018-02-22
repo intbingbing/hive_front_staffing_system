@@ -14,20 +14,12 @@
 
 <script>
     import { mapActions , mapGetters , mapState , mapMutations } from "vuex"
-    import read from './components/page/crud/Retrieve'
-    import create from './components/page/crud/Create.vue'
-    import test from './components/page/Test'
+    import read from './components/crud/Retrieve'
+    import create from './components/crud/Create.vue'
+    import test from './components/test/TestParent'
     import * as types from './store/types'
     export default {
         name: 'app',
-        methods:{
-            increment(){
-                this.$store.commit(types.INCREMENT)
-            },
-            decrement(){
-                this.$store.commit(types.DECREMENT)
-            }
-        },
         computed:{
             ...mapState([
                 'count'
@@ -37,6 +29,25 @@
             read,
             create,
             test,
+        },
+        methods:{
+            increment(){
+                this.$store.commit(types.INCREMENT)
+            },
+            decrement(){
+                this.$store.commit(types.DECREMENT)
+            },
+            init(){
+                this.$store.dispatch(types.GET_ALL_STAFF_INFO);
+                //this.$store.dispatch(types.GET_POST);
+                //this.$store.dispatch(types.GET_DEPARTMENT);
+                this.$store.dispatch(types.GET_POST_MAP_DEPARTMENT);
+                this.$store.dispatch(types.GET_POST_CASCADER);
+                //this.$store.dispatch(types.TEST,9);
+            },
+        },
+        mounted:function () {
+            this.init();
         }
     }
 </script>

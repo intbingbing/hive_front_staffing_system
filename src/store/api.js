@@ -14,9 +14,61 @@ const updateSubmitUrl='/update';
 const idDeleteUrl='/iddelete';
 const checkCookieUrl='/checkCookie';
 const clearCookieUrl='/clear_cookie';
+const getAllStaffInfoUrl='/user/hive_all_employee';
+const getPostUrl='/user/hive_post';
+const getDepartmentUrl='/user/hive_department';
+const getPostMapDepartmentUrl='/user/hive_post_map_department';
+const getPostCascaderUrl='/user/hive_post_cascader';
+const readStaffUrl='/user/hive_employee';
+const updateStaffUrl='/user/hive_employee';
+const createStaffUrl='/user/hive_employee';
+const deleteStaffUrl='/user/hive_employee';
+const testUrl='/user/hive_test';
 
 axios.defaults.withCredentials = true;
 
+//V2.0
+export async function test(index){
+    return (await axios.get(`${baseUrl}${testUrl}/${index}`)).data;
+}
+
+export async function getAllStaffInfo(){
+    return (await axios.get(`${baseUrl}${getAllStaffInfoUrl}`)).data;
+}
+
+export async function getPost(){
+    return (await axios.get(`${baseUrl}${getPostUrl}`)).data;
+}
+
+export async function getDeportment(){
+    return (await axios.get(`${baseUrl}${getDepartmentUrl}`)).data;
+}
+
+export async function getPostMapDepartment(){
+    return (await axios.get(`${baseUrl}${getPostMapDepartmentUrl}`)).data;
+}
+//后端处理好的级联选择器所需要的json格式，post映射department
+export async function getPostCascader(){
+    return (await axios.get(`${baseUrl}${getPostCascaderUrl}`)).data;
+}
+
+export async function updateStaff(updateStaffObj){
+    return (await axios.put(`${baseUrl}${updateStaffUrl}`,qs.stringify(
+        updateStaffObj
+    ))).data;
+}
+
+export async function createStaff(createStaffObj){
+    return (await axios.post(`${baseUrl}${createStaffUrl}`,qs.stringify(
+        createStaffObj
+    ))).data;
+}
+
+export async function deleteStaff(deleteStaffIndexObj){
+    return (await axios.delete(`${baseUrl}${deleteStaffUrl}/${deleteStaffIndexObj.id}`)).data;
+}
+
+//V1.0
 export async function login(username,secret){
     return (await axios.post(`${baseUrl}${loginUrl}`,qs.stringify({
         username,secret

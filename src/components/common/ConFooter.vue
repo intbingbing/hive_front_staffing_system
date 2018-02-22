@@ -1,6 +1,6 @@
 <template lang="pug">
     footer
-        span Copyright &copy; 2017 上海德仁聚合有限公司版权所有 沪ICP备155555555号-1
+        small Copyright &copy; 2018 上海德聚仁合有限公司版权所有 沪ICP备66666666号-6
 </template>
 
 <script>

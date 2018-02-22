@@ -1,5 +1,5 @@
 <template lang="pug">
-    div 我是B!
+    div 我是B
 </template>
 
 <script>
