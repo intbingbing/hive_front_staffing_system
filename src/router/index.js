@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import * as api from '../store/api'
-import { LOAD_HEADER_PORTRAIT_URL } from "../store/types";
+import * as types from "../store/types";
 const Login = () => import('@/components/auth/Login');
 const userContainer = () => import('@/components/userContainer');
 const Test = () => import('@/components/test/TestParent');
@@ -51,7 +51,12 @@ const router = new Router({
                 {
                     path:'personnel_management/staff_management',
                     name:'staff_management',
-                    component:StaffManagement
+                    component:StaffManagement,
+                    beforeEnter:(to,from,next)=>{
+                        router.app.$options.store.dispatch(types.GET_ALL_STAFF_INFO);
+                        //console.log(router.app.$options)
+                        next();
+                    }
                 },
                 {
                     path:'personnel_management/department_management',
@@ -94,7 +99,7 @@ router.beforeEach(async (to, from, next) => {
             // router.app.$options.store.state.userInfo.headerPortraitSrc=`http://122.112.210.98/ftp/${res.data.username}.jpg`;
             // console.log(router.app.$options.store.state.userInfo);
             res.headerPortraitURL = `http://122.112.210.98/ftp/${res.username}.jpg`;
-            router.app.$options.store.commit(LOAD_HEADER_PORTRAIT_URL,res);
+            router.app.$options.store.commit(types.LOAD_HEADER_PORTRAIT_URL,res);
             next();
         }else{
             next('/login');

@@ -15,7 +15,8 @@
                             @change="handleChange"
                             separator="-"
                             clearable
-                            filterable)
+                            filterable
+                            :props="valueName")
                     el-col(:span="8")
                         el-form-item(label="联系方式")
                             el-input(v-model="tmpStaffInfo.employee_phone")
@@ -66,7 +67,8 @@
                 'postCascader',
                 'postMapDepartmentInfo',
                 'edu',
-                'permissionsSelect'
+                'permissionsSelect',
+                'valueName'
             ]),
 //            getDepartmentIDByPost(){
 //                for (let departmentValue of this.departmentInfo){
@@ -96,31 +98,46 @@
                 this.defaultPostMapDepartment = (this.$utils.defaultCascaderArr(this.tmpStaffInfo.association_id,this.postMapDepartmentInfo)).reverse();
             },
             handleChange(val){
-                console.log(val);
+                //console.log(val);
             },
             async submitChange(){
                 this.showDialog=false;
                 this.tmpStaffInfo["association_id"] = this.defaultPostMapDepartment[this.defaultPostMapDepartment.length-1];
-                console.log(this.tmpStaffInfo);
-                //defaultPostMapDepartment,职位绑定的值赋给tmpStaffInfo完成格式化
-                await this.$store.dispatch(this.$types.UPDATE_STAFF,this.tmpStaffInfo);
-                await this.$store.dispatch(this.$types.GET_ALL_STAFF_INFO);
-                if(this.updateStaffRes.statusCode==='200220'){
-                    this.$notify.success({
-                        title: '更新成功！',
-                        duration:2000,
-                    });
-                }else if(this.updateStaffRes.statusCode==='40221'){
+                let checkoutPostBool = '';
+                for(let val of this.postMapDepartmentInfo){
+                    if(this.tmpStaffInfo["association_id"]===val.association_id){
+                        checkoutPostBool = val.association_is_department;
+                    }
+                }
+                //console.log(this.tmpStaffInfo);
+                if(checkoutPostBool===1){
                     this.$notify.error({
-                        title: '没有要更新的值！',
-                        duration:2000,
-                    });
-                }else{
-                    this.$notify.error({
-                        title: '其他错误！',
-                        message: this.updateStaffRes,
+                        title: '职位选择错误！',
+                        message: '您选择的是部门，请重新选择，或至-部门管理-修改属性为职位！',
                         duration:6000,
                     });
+                }else{
+                    //console.log(this.tmpStaffInfo);
+                    //defaultPostMapDepartment,职位绑定的值赋给tmpStaffInfo完成格式化
+                    await this.$store.dispatch(this.$types.UPDATE_STAFF,this.tmpStaffInfo);
+                    await this.$store.dispatch(this.$types.GET_ALL_STAFF_INFO);
+                    if(this.updateStaffRes.statusCode==='200220'){
+                        this.$notify.success({
+                            title: '更新成功！',
+                            duration:2000,
+                        });
+                    }else if(this.updateStaffRes.statusCode==='400221'){
+                        this.$notify.error({
+                            title: '没有要更新的值！',
+                            duration:2000,
+                        });
+                    }else{
+                        this.$notify.error({
+                            title: '其他错误！',
+                            message: this.updateStaffRes,
+                            duration:6000,
+                        });
+                    }
                 }
             }
         },

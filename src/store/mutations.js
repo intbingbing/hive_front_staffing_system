@@ -17,12 +17,12 @@ export default {
         }
         state.allStaffInfo = data;
     },
-    [types.GET_POST](state,data){
-        state.postInfo = data;
-    },
-    [types.GET_DEPARTMENT](state,data){
-        state.departmentInfo = data;
-    },
+    // [types.GET_POST](state,data){
+    //     state.postInfo = data;
+    // },
+    // [types.GET_DEPARTMENT](state,data){
+    //     state.departmentInfo = data;
+    // },
     [types.GET_POST_CASCADER](state,data){
         state.postCascader = data;
     },
@@ -41,11 +41,20 @@ export default {
     [types.UPDATE_STAFF](state,data){
         state.updateStaffRes = data;
     },
+    [types.UPDATE_ASSOCIATION](state,data){
+        state.updateAssociationRes = data;
+    },
     [types.CREATE_STAFF](state,data){
         state.createStaffRes = data;
     },
+    [types.CREATE_ASSOCIATION](state,data){
+        state.createAssociationRes = data;
+    },
     [types.DELETE_STAFF](state,data){
         state.deleteStaffRes = data;
+    },
+    [types.DELETE_ASSOCIATION](state,data){
+        state.deleteAssociationRes = data;
     },
     [types.LOG_IN](state, {data}){
         state.loginInfo=data;

@@ -4,6 +4,7 @@ import { formatDate } from '../utils/publicFunction'
 import md5 from 'crypto-js/md5'
 import hex from 'crypto-js/enc-hex'
 import router from '../router'
+import * as tmpTypes from './types'
 
 export default {
     async [types.TEST]({commit},index){
@@ -11,20 +12,26 @@ export default {
         commit(types.TEST,res);
     },
 
+    async [types.INIT]({commit},index){
+        //this.dispatch(tmpTypes.GET_ALL_STAFF_INFO);
+        this.dispatch(tmpTypes.GET_POST_MAP_DEPARTMENT);
+        this.dispatch(tmpTypes.GET_POST_CASCADER);
+    },
+
     async [types.GET_ALL_STAFF_INFO] ({commit}) {
         let res = await api.getAllStaffInfo();
         commit(types.GET_ALL_STAFF_INFO,res);
     },
 
-    async [types.GET_POST] ({commit}) {
-        let res = await api.getPost();
-        commit(types.GET_POST,res);
-    },
-
-    async [types.GET_DEPARTMENT] ({commit}) {
-        let res = await api.getDeportment();
-        commit(types.GET_DEPARTMENT,res);
-    },
+    // async [types.GET_POST] ({commit}) {
+    //     let res = await api.getPost();
+    //     commit(types.GET_POST,res);
+    // },
+    //
+    // async [types.GET_DEPARTMENT] ({commit}) {
+    //     let res = await api.getDeportment();
+    //     commit(types.GET_DEPARTMENT,res);
+    // },
 
     async [types.GET_POST_CASCADER] ({commit}) {
         let res = await api.getPostCascader();
@@ -42,15 +49,30 @@ export default {
         commit(types.UPDATE_STAFF,res);
     },
 
+    async [types.UPDATE_ASSOCIATION] ({commit},updateAssociationObj) {
+        let res = await api.updateAssociation(updateAssociationObj);
+        commit(types.UPDATE_ASSOCIATION,res);
+    },
+
     async [types.CREATE_STAFF] ({commit},createStaffObj) {
         createStaffObj.employee_entry_time = formatDate(createStaffObj.employee_entry_time);
         let res = await api.createStaff(createStaffObj);
         commit(types.CREATE_STAFF,res);
     },
 
+    async [types.CREATE_ASSOCIATION] ({commit},createAssociationObj) {
+        let res = await api.createAssociation(createAssociationObj);
+        commit(types.CREATE_ASSOCIATION,res);
+    },
+
     async [types.DELETE_STAFF] ({commit},deleteStaffIndexObj) {
         let res = await api.deleteStaff(deleteStaffIndexObj);
         commit(types.DELETE_STAFF,res);
+    },
+
+    async [types.DELETE_ASSOCIATION] ({commit},deleteAssociationIndexObj) {
+        let res = await api.deleteAssociation(deleteAssociationIndexObj);
+        commit(types.DELETE_ASSOCIATION,res);
     },
 
     async [types.LOG_IN] ({commit},{username,password}) {

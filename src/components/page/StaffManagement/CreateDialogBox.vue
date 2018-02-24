@@ -15,7 +15,8 @@
                             @change="handleChange"
                             separator=" - "
                             clearable
-                            filterable)
+                            filterable
+                            :props="valueName")
                     el-col(:span="8")
                         el-form-item(label="联系方式")
                             el-input(v-model="tmpStaffInfo.employee_phone")
@@ -66,7 +67,8 @@
                 'postCascader',
                 'edu',
                 'permissionsSelect',
-                'createStaffRes'
+                'createStaffRes',
+                'valueName'
             ]),
 //            getDepartmentIDByPost(){
 //                for (let departmentValue of this.departmentInfo){
@@ -93,11 +95,11 @@
                 //console.log(val);
             },
             async submitCreate() {
+                this.showDialog = false;
                 this.tmpStaffInfo["association_id"] = this.createPostCascader[this.createPostCascader.length-1];
                 //console.log(this.tmpStaffInfo);
                 await this.$store.dispatch(this.$types.CREATE_STAFF,this.tmpStaffInfo);
                 await this.$store.dispatch(this.$types.GET_ALL_STAFF_INFO);
-                this.showDialog = false;
                 if(this.createStaffRes.statusCode==='200210'){
                     this.$notify.success({
                         title: '创建成功！',

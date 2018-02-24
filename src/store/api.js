@@ -14,15 +14,19 @@ const updateSubmitUrl='/update';
 const idDeleteUrl='/iddelete';
 const checkCookieUrl='/checkCookie';
 const clearCookieUrl='/clear_cookie';
+
 const getAllStaffInfoUrl='/user/hive_all_employee';
-const getPostUrl='/user/hive_post';
-const getDepartmentUrl='/user/hive_department';
+// const getPostUrl='/user/hive_post';
+// const getDepartmentUrl='/user/hive_department';
 const getPostMapDepartmentUrl='/user/hive_post_map_department';
 const getPostCascaderUrl='/user/hive_post_cascader';
 const readStaffUrl='/user/hive_employee';
 const updateStaffUrl='/user/hive_employee';
 const createStaffUrl='/user/hive_employee';
 const deleteStaffUrl='/user/hive_employee';
+const updateAssociationUrl='/user/hive_association';
+const createAssociationUrl='/user/hive_association';
+const deleteAssociationUrl='/user/hive_association';
 const testUrl='/user/hive_test';
 
 axios.defaults.withCredentials = true;
@@ -36,13 +40,13 @@ export async function getAllStaffInfo(){
     return (await axios.get(`${baseUrl}${getAllStaffInfoUrl}`)).data;
 }
 
-export async function getPost(){
-    return (await axios.get(`${baseUrl}${getPostUrl}`)).data;
-}
-
-export async function getDeportment(){
-    return (await axios.get(`${baseUrl}${getDepartmentUrl}`)).data;
-}
+// export async function getPost(){
+//     return (await axios.get(`${baseUrl}${getPostUrl}`)).data;
+// }
+//
+// export async function getDeportment(){
+//     return (await axios.get(`${baseUrl}${getDepartmentUrl}`)).data;
+// }
 
 export async function getPostMapDepartment(){
     return (await axios.get(`${baseUrl}${getPostMapDepartmentUrl}`)).data;
@@ -58,14 +62,30 @@ export async function updateStaff(updateStaffObj){
     ))).data;
 }
 
+export async function updateAssociation(updateAssociationObj){
+    return (await axios.put(`${baseUrl}${updateAssociationUrl}`,qs.stringify(
+        updateAssociationObj
+    ))).data;
+}
+
 export async function createStaff(createStaffObj){
     return (await axios.post(`${baseUrl}${createStaffUrl}`,qs.stringify(
         createStaffObj
     ))).data;
 }
 
+export async function createAssociation(createAssociationObj){
+    return (await axios.post(`${baseUrl}${createAssociationUrl}`,qs.stringify(
+        createAssociationObj
+    ))).data;
+}
+
 export async function deleteStaff(deleteStaffIndexObj){
     return (await axios.delete(`${baseUrl}${deleteStaffUrl}/${deleteStaffIndexObj.id}`)).data;
+}
+
+export async function deleteAssociation(deleteAssociationIndexObj){
+    return (await axios.delete(`${baseUrl}${deleteAssociationUrl}/${deleteAssociationIndexObj.id}`)).data;
 }
 
 //V1.0

@@ -1,29 +1,40 @@
 <template lang="pug">
     section
+        <!--el-row-->
+            <!--el-col-->
+                <!--el-button(@click="clickTest") 点击-->
+                <!--el-button-group-->
+                    <!--el-button(type="primary" size="small" icon="el-icon-edit" @click="batchEdit") 修改-->
+                    <!--el-button(type="danger" size="small" icon="el-icon-delete" @click="batchRemove") 删除-->
         el-row
             el-col(:span="12")
                 div.custom-tree-container
                     el-tree(:data="tmpData"
-                        node-key="value"
-                        accordion
+                        :props="valueName"
+                        node-key="association_id"
                         ref="tree"
                         @node-click="nodeClick"
                         expand-on-click-node
+                        :highlight-current="true"
                         :default-expanded-keys="[1]"
                         :expand-on-click-node="false"
-                        :render-content="renderContent")
-                    el-button(@click="getNode") postCascader
-                    el-button(@click="") newFormDialogBox
+                        :render-content="renderContent"
+                        :indent="20")
         el-row
             el-col
                 UpdateDialogBox(ref="updateDialogBox")
+        <!--el-row-->
+            <!--el-col-->
+                <!--BatchUpdateDialogBox(ref="batchUpdateDialogBox")-->
 </template>
 <script>
     import { mapState } from 'vuex'
     import UpdateDialogBox from './UpdateDialogBox.vue'
+    //import BatchUpdateDialogBox from './BatchUpdateDialogBox.vue'
     export default {
         components:{
-            UpdateDialogBox
+            UpdateDialogBox,
+            //BatchUpdateDialogBox
         },
         computed: {
             ...mapState([
@@ -31,48 +42,76 @@
                 'departmentInfo',
                 'postInfo',
                 'postMapDepartmentInfo',
+                'valueName',
+                'deleteAssociationRes',
+                'createAssociationRes'
             ]),
         },
-            data() {
-                return {
-                    tmpData: [],
-                    maxID: '',
-                }
+        data() {
+            return {
+                tmpData: [],
+                maxID: '',
+            }
+        },
+        methods: {
+            clickTest(){
+                console.log(this.$refs.tree.getCheckedNodes());
             },
-            methods: {
-                appendDepartment(data, node) {
+//            batchEdit(){
+//                if(this.$refs.tree.getCheckedNodes().length!==0){
+//                    this.$refs.batchUpdateDialogBox.changeDialogStatus(this.$refs.tree.getCheckedNodes());
+//                }else{
+//                    this.$notify.error({title: '未选中数据！', duration:2000,});
+//                }
+//            },
+//            batchRemove(){
+//
+//            },
+            appendDepartment(data, node) {
+                if(data.association_is_department===1){
                     this.$prompt('请输入<strong><span style="color:#ff7825">部门</span></strong>名', '提示', {
                         confirmButtonText: '确定',
                         cancelButtonText: '取消',
                         dangerouslyUseHTMLString: true
-                    }).then((inputContent) => {
+                    }).then(async (inputContent) => {
                         const newChild = {
-                            value: this.maxID + 1,
-                            association_pid: data.value,
+                            association_id: this.maxID + 1,
+                            association_pid: data.association_id,
                             association_is_department: 1,
-                            label: inputContent.value,
+                            association_name: inputContent.value,
                             children: []
                         };
-                        if (!data.children) {
-                            this.$set(data, 'children', []);
+                        await this.$store.dispatch(this.$types.CREATE_ASSOCIATION,newChild);
+                        await this.$store.dispatch(this.$types.INIT);
+                        if(this.createAssociationRes.statusCode==='200210'){
+                            this.$notify.success({title: '部门添加成功！', duration:2000});
+                        }else{
+                            this.$notify.error({title: '其他错误！', message: this.deleteAssociationRes, duration:6000,});
                         }
-                        data.children.push(newChild);
-                        this.maxID++;
+                        //this.maxID++;
                     }).catch(() => {
                     });
-                },
+                }else{
+                    this.$notify.error({
+                        title: '职位不应添加子项目！',
+                        message:'请修改属性为部门',
+                        duration:4000,
+                    });
+                }
+            },
 
-                appendPost(data, node) {
+            appendPost(data, node) {
+                if(data.association_is_department===1){
                     this.$prompt('请输入<strong><span style="color:#ff7825">职位</span></strong>名', '提示', {
                         confirmButtonText: '确定',
                         cancelButtonText: '取消',
                         dangerouslyUseHTMLString: true
-                    }).then((inputContent) => {
+                    }).then(async (inputContent) => {
                         const newChild = {
-                            value: this.maxID + 1,
-                            association_pid: data.value,
+                            association_id: this.maxID + 1,
+                            association_pid: data.association_id,
                             association_is_department: 0,
-                            label: inputContent.value,
+                            association_name: inputContent.value,
                             children: []
                         };
                         if (!data.children) {
@@ -80,95 +119,97 @@
                         }
                         data.children.push(newChild);
                         this.maxID++;
+                        await this.$store.dispatch(this.$types.CREATE_ASSOCIATION,newChild);
+                        await this.$store.dispatch(this.$types.INIT);
+                        if(this.createAssociationRes.statusCode==='200210'){
+                            this.$notify.success({title: '职位添加成功！', duration:2000});
+                        }else{
+                            this.$notify.error({title: '其他错误！', message: this.deleteAssociationRes, duration:6000,});
+                        }
+                        //await this.$store.dispatch(this.$types.GET_POST_MAP_DEPARTMENT);
+                        //await this.$store.dispatch(this.$types.GET_POST_CASCADER);
+                        //await this.$store.dispatch(this.$types.INIT);
                     }).catch(() => {
                     });
-                },
-
-                update(data,node){
-                    console.log(node)
-                },
-
-                getNode(){
-                    //this.treeToJson(1);
-                    //console.log(this.$refs.tree.root.data);
-                    console.log(this.$utils.treeToJson(this.$refs.tree.root.data));
-                    //this.treeToJson(this.$refs.tree.root.data);
-                },
-                openDialog(node) {
-                    this.$refs.updateDialogBox.changeDialogStatus(node);
-                },
-                nodeClick() {
-                },
-                remove(node, data) {
-                    //console.log(node);
-                    //console.log(data===this.tmpData);
-                    this.$confirm('此操作将删除员工, 是否继续?', '警告', {
-                        confirmButtonText: '确定',
-                        cancelButtonText: '取消',
-                        type: 'warning'
-                    }).then(()=>{
-                        const parent = node.parent;
-                        const children = parent.data.children || parent.data;
-                        const index = children.findIndex(d => d.value === data.value);
-                        children.splice(index, 1);
-                    }).catch(()=>{})
-                },
-
-                renderContent(h, { node, data, store }) {
-                    return (
-                        <span class="custom-tree-node">
-                            <span>{node.label}</span>
-                            <span>
-                                <el-button type="text" size="small" icon="el-icon-circle-plus-outline" on-click={ () => this.appendDepartment(data,node) }>部门</el-button>
-                                <el-button type="text" size="small" icon="el-icon-circle-plus-outline" on-click={ () => this.appendPost(data,node) }>职位</el-button>
-                                <el-button type="text" size="small" icon="el-icon-edit" on-click={ () => this.openDialog(node) }>修改</el-button>
-                                <el-button type="text" size="small" icon="el-icon-delete" on-click={ () => this.remove(node, data) }>删除</el-button>
-                            </span>
-                        </span>);
+                }else{
+                    this.$notify.error({
+                        title: '职位不应添加子项目！',
+                        message:'请修改属性为部门',
+                        duration:4000,
+                    });
                 }
             },
-            mounted() {
-//            /**
-//             * json格式转树状结构
-//             * @param   {json}      json数据
-//             * @param   {String}    id的字符串
-//             * @param   {String}    父id的字符串
-//             * @param   {String}    children的字符串
-//             * @return  {Array}     数组
-//             */
-                this.maxID = this.postMapDepartmentInfo[this.postMapDepartmentInfo.length - 1]['association_id'];
-                this.tmpData = this.postCascader;
-//                function transData(a, idStr, pidStr, chindrenStr) {
-//                    let r = [], hash = {}, id = idStr, pid = pidStr, children = chindrenStr, i = 0, j = 0,
-//                        len = a.length;
-//                    for (; i < len; i++) {
-//                        hash[a[i][id]] = a[i];
-//                    }
-//                    for (; j < len; j++) {
-//                        let aVal = a[j], hashVP = hash[aVal[pid]];
-//                        if (hashVP) {
-//                            !hashVP[children] && (hashVP[children] = []);
-//                            hashVP[children].push(aVal);
-//                        } else {
-//                            r.push(aVal);
-//                        }
-//                    }
-//                    return r;
-//                }
-//                //格式转换，字段替换
-//                this.tmpData = transData(this.postCascader, 'department_id', 'department_pid', 'children');
-//                let tmpStr = JSON.stringify(this.tmpData);
-//                tmpStr = tmpStr.replace(/department_id/g, "value");
-//                tmpStr = tmpStr.replace(/department_name/g, "label");
-//                this.tmpData = JSON.parse(tmpStr);
 
-                //this.$refs.tree.updateKeyChildren(1,[{label:'上海把弄湿',value:100}])
-                //console.log(this.maxID)
-                //console.log(this.tmpData);
+            update(data,node){
+                //console.log(node)
+            },
 
+            getNode(){
+                //console.log(this.$utils.searchSonIDArr(3,this.postMapDepartmentInfo));
+            },
+            openDialog(node) {
+                this.$refs.updateDialogBox.changeDialogStatus(node);
+            },
+            nodeClick() {
+            },
+            remove(node, data) {
+                //console.log(JSON.stringify(node.data));
+                let removeArr=[];
+                let singleJson = this.$utils.treeToJson([node.data]);
+                for(let val of singleJson){
+                    removeArr.push(val.association_id);
+                }
+                removeArr.reverse();
+                //console.log(data===this.tmpData);
+                this.$confirm('此操作将删除该信息及其子选项, 是否继续?', '警告', {
+                    confirmButtonText: '确定',
+                    cancelButtonText: '取消',
+                    type: 'warning'
+                }).then(async ()=>{
+                    //并行异步请求
+                    let promises = removeArr.map(id => this.$store.dispatch(this.$types.DELETE_ASSOCIATION,{id}));
+                    for(let promise of promises){
+                        await promise;
+                    }
+                    //await this.$store.dispatch(this.$types.DELETE_ASSOCIATION,{id:node.data.association_id});
+                    await this.$store.dispatch(this.$types.INIT);
+                    if(this.deleteAssociationRes.statusCode==='200240'){
+                        this.$notify.success({title: '删除成功！', duration:2000});
+                    }else if(this.deleteAssociationRes.statusCode==='40221'){
+                        this.$notify.error({title: '没有要删除的值！', duration:2000,});
+                    }else{
+                        this.$notify.error({title: '其他错误！', message: this.deleteAssociationRes, duration:6000,});
+                    }
+//                    const parent = node.parent;
+//                    const children = parent.data.children || parent.data;
+//                    const index = children.findIndex(d => d.value === data.value);
+//                    children.splice(index, 1);
+                }).catch(()=>{})
+            },
 
+            renderContent(h, { node, data, store }) {
+                return (
+                    <span class="custom-tree-node">
+                        <span>{node.label}</span>
+                        <span>
+                            <el-button type="text" size="medium" icon="el-icon-circle-plus-outline" on-click={ () => this.appendDepartment(data,node) }>部门</el-button>
+                            <el-button type="text" size="medium" icon="el-icon-circle-plus-outline" on-click={ () => this.appendPost(data,node) }>职位</el-button>
+                            <el-button type="text" size="medium" icon="el-icon-edit" on-click={ () => this.openDialog(node) }>修改</el-button>
+                            <el-button type="text" size="medium" icon="el-icon-delete" on-click={ () => this.remove(node, data) }>删除</el-button>
+                        </span>
+                    </span>);
+            }
+        },
+        mounted() {
+            this.maxID = this.postMapDepartmentInfo[this.postMapDepartmentInfo.length - 1]['association_id'];
+            this.tmpData = JSON.parse(JSON.stringify(this.postCascader));
+        },
+        watch:{
+            postCascader(newValue,oldValue){
+                this.tmpData = JSON.parse(JSON.stringify(newValue));
             }
         }
+    }
 </script>
 
 <style>

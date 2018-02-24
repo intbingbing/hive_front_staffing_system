@@ -18,7 +18,7 @@
                     el-table-column(prop="employee_name" label="姓名")
                     el-table-column(prop="post_name" label="职位" :filters="this.filters_post_name" :filter-method="filterPostName")
                     el-table-column(prop="department_name" label="部门" :filters="this.filters_department_name" :filter-method="filterDepartmentName")
-                    el-table-column(:formatter="permissionsFormat" label="权限")
+                    el-table-column(prop="permissions_des" label="权限")
                     el-table-column(prop="employee_salary" label="薪水" :filters="this.filters_employee_salary" :filter-method="filterEmployeeSalary")
                     el-table-column(prop="employee_edu" label="学历")
                     el-table-column(prop="employee_work_seniority" label="参加工作")
@@ -159,7 +159,7 @@
             },
             //导出excel
             handleExport(){
-                console.log(this.selectArr);
+                //console.log(this.selectArr);
                 if(this.selectArr.length===0){
                     this.$notify.error({title: '未选中数据！', duration: 2000,});
                     return 0
@@ -193,15 +193,15 @@
             filterEmployeeSalary(value, row, column) {
                 return row['employee_salary'] === value;
             },
-            permissionsFormat(row){
-                if(row.permissions_id===1){
-                    return '超级管理员'
-                }else if(row.permissions_id===2){
-                    return '管理员'
-                }else{
-                    return '普通用户'
-                }
-            },
+//            permissionsFormat(row){
+//                if(row.permissions_id===1){
+//                    return '超级管理员'
+//                }else if(row.permissions_id===2){
+//                    return '管理员'
+//                }else{
+//                    return '普通用户'
+//                }
+//            },
             handleEdit(scope) {
                 //console.log(scope);
                 //console.log(row);
@@ -214,7 +214,7 @@
                 }).then(async () => {
                     await this.$store.dispatch(types.DELETE_STAFF,{id:row.employee_id});
                     this.$store.dispatch(types.GET_ALL_STAFF_INFO);
-                    this.$store.dispatch(types.GET_POST_MAP_DEPARTMENT);
+                    //this.$store.dispatch(types.GET_POST_MAP_DEPARTMENT);
                     if(this.deleteStaffRes.statusCode==='200240'){
                         this.$notify.success({title: '删除成功！', duration:2000,});
                     }else if(this.deleteStaffRes.statusCode==='40241'){

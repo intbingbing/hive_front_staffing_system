@@ -31,23 +31,18 @@
             test,
         },
         methods:{
-            increment(){
-                this.$store.commit(types.INCREMENT)
-            },
-            decrement(){
-                this.$store.commit(types.DECREMENT)
-            },
-            init(){
-                this.$store.dispatch(types.GET_ALL_STAFF_INFO);
-                //this.$store.dispatch(types.GET_POST);
-                //this.$store.dispatch(types.GET_DEPARTMENT);
-                this.$store.dispatch(types.GET_POST_MAP_DEPARTMENT);
-                this.$store.dispatch(types.GET_POST_CASCADER);
-                //this.$store.dispatch(types.TEST,9);
-            },
+//            init(){
+//                this.$store.dispatch(types.GET_ALL_STAFF_INFO);
+//                this.$store.dispatch(types.GET_POST);
+//                this.$store.dispatch(types.GET_DEPARTMENT);
+//                this.$store.dispatch(types.GET_POST_MAP_DEPARTMENT);
+//                this.$store.dispatch(types.GET_POST_CASCADER);
+//                this.$store.dispatch(types.TEST,9);
+//            },
         },
         mounted:function () {
-            this.init();
+            //初始化封装在action INIT中，三个请求：GET_ALL_STAFF_INFO，GET_POST_MAP_DEPARTMENT，GET_POST_CASCADER
+            this.$store.dispatch(this.$types.INIT);
         }
     }
 </script>
