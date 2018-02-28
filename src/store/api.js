@@ -24,9 +24,9 @@ const readStaffUrl='/user/hive_employee';
 const updateStaffUrl='/user/hive_employee';
 const createStaffUrl='/user/hive_employee';
 const deleteStaffUrl='/user/hive_employee';
-const updateAssociationUrl='/user/hive_association';
-const createAssociationUrl='/user/hive_association';
-const deleteAssociationUrl='/user/hive_association';
+const associationUrl='/user/hive_association';
+const attendanceUrl='/user/hive_attendance';
+const clockInUrl='/user/hive_clock_in';
 const testUrl='/user/hive_test';
 
 axios.defaults.withCredentials = true;
@@ -56,6 +56,14 @@ export async function getPostCascader(){
     return (await axios.get(`${baseUrl}${getPostCascaderUrl}`)).data;
 }
 
+export async function getClockIn(dateObj){
+    return (await axios.get(`${baseUrl}${clockInUrl}/${dateObj.date}`)).data;
+}
+
+export async function getAttendance(dateObj){
+    return (await axios.get(`${baseUrl}${attendanceUrl}/${dateObj.date}`)).data;
+}
+
 export async function updateStaff(updateStaffObj){
     return (await axios.put(`${baseUrl}${updateStaffUrl}`,qs.stringify(
         updateStaffObj
@@ -63,7 +71,7 @@ export async function updateStaff(updateStaffObj){
 }
 
 export async function updateAssociation(updateAssociationObj){
-    return (await axios.put(`${baseUrl}${updateAssociationUrl}`,qs.stringify(
+    return (await axios.put(`${baseUrl}${associationUrl}`,qs.stringify(
         updateAssociationObj
     ))).data;
 }
@@ -75,7 +83,7 @@ export async function createStaff(createStaffObj){
 }
 
 export async function createAssociation(createAssociationObj){
-    return (await axios.post(`${baseUrl}${createAssociationUrl}`,qs.stringify(
+    return (await axios.post(`${baseUrl}${associationUrl}`,qs.stringify(
         createAssociationObj
     ))).data;
 }
@@ -85,7 +93,7 @@ export async function deleteStaff(deleteStaffIndexObj){
 }
 
 export async function deleteAssociation(deleteAssociationIndexObj){
-    return (await axios.delete(`${baseUrl}${deleteAssociationUrl}/${deleteAssociationIndexObj.id}`)).data;
+    return (await axios.delete(`${baseUrl}${associationUrl}/${deleteAssociationIndexObj.id}`)).data;
 }
 
 //V1.0

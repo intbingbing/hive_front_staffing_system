@@ -69,7 +69,7 @@
                             {
                                 title:'签到签退',
                                 index:'3-1',
-                                path:'/user/attendance_management/sign_in',
+                                path:'/user/attendance_management/clock_in',
                             },
                             {
                                 title:'请假查看',

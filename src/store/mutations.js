@@ -38,6 +38,15 @@ export default {
         }
         state.postMapDepartmentInfo = data;
     },
+    [types.GET_CLOCK_IN](state,data){
+        state.getClockInRes.push(data);
+    },
+    [types.CLEAR_CLOCK_IN_RATE](state){
+        state.getClockInRes=[];
+    },
+    [types.GET_ATTENDANCE](state,data){
+        state.getAttendanceRes = data;
+    },
     [types.UPDATE_STAFF](state,data){
         state.updateStaffRes = data;
     },

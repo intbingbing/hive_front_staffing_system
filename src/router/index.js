@@ -6,8 +6,10 @@ const Login = () => import('@/components/auth/Login');
 const userContainer = () => import('@/components/userContainer');
 const Test = () => import('@/components/test/TestParent');
 const UserContainer = () => import('@/components/roles/UserContainer');
+const SectionContainer = () => import('@/components/common/SectionContainer');
 const StaffManagement = () => import('@/components/page/StaffManagement/StaffManagement');
 const PostDepartmentManagement = () => import('@/components/page/PostDepartmentManagement/Index');
+const ClockInManage = () => import('@/components/page/ClockInManage/ClockInManage');
 const A = () => import('@/components/A');
 const B = () => import('@/components/B');
 
@@ -15,60 +17,40 @@ Vue.use(Router);
 
 const router = new Router({
     routes: [
-        {
-            path: '/',
-            name: 'Container',
-            component: userContainer
-        },
-        {
-            path:'/login',
-            name:'Login',
-            component:Login
-        },
-        {
-            path:'/test',
-            name:'Test',
-            component:Test
-        },
-        {
-            path:'/user',
-            component:UserContainer,
-            children:[
-                {
-                    path:'',
-                    redirect:'announcement'
-                },
-                {
-                    path:'announcement',
-                    name:'announcement',
-                    component:A
-                },
-                {
-                    path:'personnel_management/company_management',
-                    name:'company_management',
-                    component:B
-                },
-                {
-                    path:'personnel_management/staff_management',
-                    name:'staff_management',
-                    component:StaffManagement,
+        { path: '/', name: 'Container', component: userContainer },
+        { path:'/login', name:'Login', component:Login },
+        { path:'/test', name:'Test', component:Test },
+        { path:'/user', component:UserContainer, children:[
+
+            { path:'', redirect:{ name:'announcement' } },
+            { path:'announcement', name:'announcement', component:A },
+            { path:'personnel_management', component:SectionContainer, children:[
+                { path:'company_management', name:'company_management', component:B },
+                { path:'staff_management', name:'staff_management', component:StaffManagement,
                     beforeEnter:(to,from,next)=>{
                         router.app.$options.store.dispatch(types.GET_ALL_STAFF_INFO);
                         //console.log(router.app.$options)
                         next();
                     }
                 },
-                {
-                    path:'personnel_management/department_management',
-                    name:'department_management',
-                    component:PostDepartmentManagement
-                },
-                {
-                    path:'personnel_management/position_management',
-                    redirect:'personnel_management/department_management'
-                },
-            ]
-        }
+                { path:'department_management', name:'department_management', component:PostDepartmentManagement },
+                { path:'position_management', redirect:{ name:'department_management' } },
+            ]},
+            { path:'attendance_management', component:SectionContainer, children:[
+                { path:'clock_in', name:'clock_in', component:ClockInManage },
+            ]}
+            // { path:'personnel_management/company_management', name:'company_management', component:B },
+            // { path:'personnel_management/staff_management', name:'staff_management', component:StaffManagement,
+            //     beforeEnter:(to,from,next)=>{
+            //         router.app.$options.store.dispatch(types.GET_ALL_STAFF_INFO);
+            //         //console.log(router.app.$options)
+            //         next();
+            //     }
+            // },
+            // { path:'personnel_management/department_management', name:'department_management', component:PostDepartmentManagement },
+            // { path:'personnel_management/position_management', redirect:'personnel_management/department_management' },
+
+        ]}
     ]
 });
 

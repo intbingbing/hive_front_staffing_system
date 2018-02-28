@@ -1,6 +1,28 @@
-export function formatDate (date){
+/*
+* param date:{ Date },日期
+* param options:{ none | 'number'} none:2018-01-01 number:20180101
+* return String
+* */
+export function formatDate (date,options){
     date=new Date(date);
-    return `${date.getFullYear()}-${date.getMonth()+1}-${date.getDate()}`;
+    let year = date.getFullYear();
+    let month = date.getMonth()+1;
+    let day = date.getDate();
+    let monthString = month.toString();
+    let dayString = day.toString();
+    let result = '';
+    if(monthString.length===1){
+        monthString='0'+monthString;
+    }
+    if(dayString.length===1){
+        dayString='0'+dayString;
+    }
+    switch (options){
+        case 'number':result = `${year}${monthString}${dayString}`;
+        break;
+        default:result = `${year}-${monthString}-${dayString}`;
+    }
+    return result;
 }
 export function defaultCascaderArr (id,mapData){
     let result=[];

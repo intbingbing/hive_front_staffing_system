@@ -1,90 +1,78 @@
-<template>
-    <div>
-    <el-tree
-    :data="data2"
-    show-checkbox
-    default-expand-all
-    node-key="id"
-    ref="tree"
-    highlight-current
-    :props="defaultProps">
-</el-tree>
-<div class="buttons">
-    <el-button @click="getCheckedNodes">通过 node 获取</el-button>
-    <el-button @click="getCheckedKeys">通过 key 获取</el-button>
-    <el-button @click="setCheckedNodes">通过 node 设置</el-button>
-    <el-button @click="setCheckedKeys">通过 key 设置</el-button>
-    <el-button @click="resetChecked">清空</el-button>
-</div></div>
+<template lang="pug">
+    div#attendance
 </template>
 <script>
+    import * as echarts from 'echarts'
     export default {
-        methods: {
-            getCheckedNodes() {
-                console.log(this.$refs.tree.getCheckedNodes());
-            },
-            getCheckedKeys() {
-                console.log(this.$refs.tree.getCheckedKeys());
-            },
-            setCheckedNodes() {
-                this.$refs.tree.setCheckedNodes([{
-                    id: 5,
-                    label: '二级 2-1'
-                }, {
-                    id: 9,
-                    label: '三级 1-1-1'
-                }]);
-            },
-            setCheckedKeys() {
-                this.$refs.tree.setCheckedKeys([3]);
-            },
-            resetChecked() {
-                this.$refs.tree.setCheckedKeys([]);
+        name: '',
+        data () {
+            return {
+                charts: '',
+                opinion:[],
+                opinionData:[]
             }
         },
+        methods:{
+            drawPie(id){
+                this.charts = echarts.init(document.getElementById(id));
+                this.charts.setOption({
 
-        data() {
-            return {
-                data2: [{
-                    id: 1,
-                    label: '一级 1',
-                    children: [{
-                        id: 4,
-                        label: '二级 1-1',
-                        children: [{
-                            id: 9,
-                            label: '三级 1-1-1'
-                        }, {
-                            id: 10,
-                            label: '三级 1-1-2'
-                        }]
-                    }]
-                }, {
-                    id: 2,
-                    label: '一级 2',
-                    children: [{
-                        id: 5,
-                        label: '二级 2-1'
-                    }, {
-                        id: 6,
-                        label: '二级 2-2'
-                    }]
-                }, {
-                    id: 3,
-                    label: '一级 3',
-                    children: [{
-                        id: 7,
-                        label: '二级 3-1'
-                    }, {
-                        id: 8,
-                        label: '二级 3-2'
-                    }]
-                }],
-                defaultProps: {
-                    children: 'children',
-                    label: 'label'
-                }
-            };
+                    dataset: {
+                        source: [
+                            ['日期','出勤率','准时到岗率','准时离岗率'],
+                            ['周一',100,98.6,97.6,],
+                            ['周二',100,99.6,97.6,],
+                            ['周三',100,98.6,97.6,],
+                            ['周四',100,97.6,97.6,],
+                            ['周五',100,98.6,97.6,],
+                            ['周六',100,99.6,97.6,],
+                            ['周日',100,98.6,97.6,],
+                        ]
+                    },
+                    title: {text: '测试'},
+                    tooltip: {trigger: 'axis'},
+                    legend: {},
+                    grid: {
+                        left: '3%',
+                        right: '4%',
+                        bottom: '3%',
+                        containLabel: true
+                    },
+                    toolbox: {
+                        feature: {
+                            saveAsImage: {}
+                        }
+                    },
+                    xAxis: {type: 'category',},
+                    yAxis: {
+                        type: 'value',
+                        min:value=>parseInt(value.min-2),
+                        max:value=>parseInt(value.max+2),
+                    },
+                    series: [
+                        {type:'line'},
+                        {type:'line'},
+                        {type:'line'},
+                    ]
+                })
+            }
+        },
+        //调用
+        mounted(){
+            this.$nextTick(function() {
+                this.drawPie('attendance')
+            })
         }
-    };
+    }
 </script>
+<style scoped>
+    * {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+    }
+    #attendance{
+        width: 600px;
+        height: 300px;
+    }
+</style>

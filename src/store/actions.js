@@ -43,6 +43,16 @@ export default {
         commit(types.GET_POST_MAP_DEPARTMENT,res);
     },
 
+    async [types.GET_CLOCK_IN] ({commit},dateObj) {
+        let res = await api.getClockIn(dateObj);
+        commit(types.GET_CLOCK_IN,res);
+    },
+
+    async [types.GET_ATTENDANCE] ({commit},dateObj) {
+        let res = await api.getAttendance(dateObj);
+        commit(types.GET_ATTENDANCE,res);
+    },
+
     async [types.UPDATE_STAFF] ({commit},updateStaffObj) {
         updateStaffObj.employee_entry_time = formatDate(updateStaffObj.employee_entry_time);
         let res = await api.updateStaff(updateStaffObj);

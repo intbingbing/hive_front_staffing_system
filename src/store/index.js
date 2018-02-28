@@ -33,6 +33,8 @@ const state={
     allStaffInfo:[],
     postInfo:[],
     departmentInfo:[],
+    getClockInRes:[],
+    getAttendanceRes:[],
     postMapDepartmentInfo:[],
     postCascader:{},
     updateStaffRes:[],
