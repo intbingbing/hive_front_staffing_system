@@ -10,6 +10,12 @@ const SectionContainer = () => import('@/components/common/SectionContainer');
 const StaffManagement = () => import('@/components/page/StaffManagement/StaffManagement');
 const PostDepartmentManagement = () => import('@/components/page/PostDepartmentManagement/Index');
 const ClockInManage = () => import('@/components/page/ClockInManage/ClockInManage');
+const AnnouncementManage = () => import('@/components/page/AnnouncementManage/AnnouncementManage');
+const CompanyManage = () => import('@/components/page/CompanyManage/CompanyManage');
+const VacationManage = () => import('@/components/page/VacationManage/VacationManage');
+const DepartmentFile = () => import('@/components/page/DepartmentFile/DepartmentFile');
+const ChartShow = () => import('@/components/page/ChartShow/ChartShow');
+const Home = () => import('@/components/page/Home/Home');
 const A = () => import('@/components/A');
 const B = () => import('@/components/B');
 
@@ -22,10 +28,11 @@ const router = new Router({
         { path:'/test', name:'Test', component:Test },
         { path:'/user', component:UserContainer, children:[
 
-            { path:'', redirect:{ name:'announcement' } },
-            { path:'announcement', name:'announcement', component:A },
+            { path:'', redirect:{ name:'home' } },
+            { path:'home', name:'home', component:Home },
+            { path:'announcement', name:'announcement', component:AnnouncementManage },
             { path:'personnel_management', component:SectionContainer, children:[
-                { path:'company_management', name:'company_management', component:B },
+                { path:'company_management', name:'company_management', component:CompanyManage },
                 { path:'staff_management', name:'staff_management', component:StaffManagement,
                     beforeEnter:(to,from,next)=>{
                         router.app.$options.store.dispatch(types.GET_ALL_STAFF_INFO);
@@ -38,7 +45,12 @@ const router = new Router({
             ]},
             { path:'attendance_management', component:SectionContainer, children:[
                 { path:'clock_in', name:'clock_in', component:ClockInManage },
-            ]}
+                { path:'leave', name:'leave', component:VacationManage },
+            ]},
+            { path:'my_department', component:SectionContainer, children:[
+                { path:'department_file', name:'department_file', component:DepartmentFile },
+            ]},
+            { path:'chart', component:ChartShow,},
             // { path:'personnel_management/company_management', name:'company_management', component:B },
             // { path:'personnel_management/staff_management', name:'staff_management', component:StaffManagement,
             //     beforeEnter:(to,from,next)=>{

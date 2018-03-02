@@ -1,9 +1,9 @@
 <template lang="pug">
     el-menu(
     class="el-menu-vertical-demo"
-    background-color="#545c64"
-    text-color="#fff"
-    active-text-color="#ffd04b"
+    background-color="rgba(0,0,0,0)"
+    text-color="#555"
+    active-text-color="#149388"
     v-bind:unique-opened='true'
     :router="true"
     )
@@ -116,5 +116,7 @@
 <style scoped>
     .el-menu{
         border:0;
+        padding: 15px;
+        font-weight: 600;
     }
 </style>

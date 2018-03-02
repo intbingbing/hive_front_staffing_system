@@ -44,8 +44,14 @@ export default {
     [types.CLEAR_CLOCK_IN_RATE](state){
         state.getClockInRes=[];
     },
+    [types.CLEAR_DEPARTMENT_ATTENDANCE_RATE](state){
+        state.getDepartmentAttendanceRes=[];
+    },
     [types.GET_ATTENDANCE](state,data){
         state.getAttendanceRes = data;
+    },
+    [types.GET_DEPARTMENT_ATTENDANCE_RATE](state,data){
+        state.getDepartmentAttendanceRes.push(data) ;
     },
     [types.UPDATE_STAFF](state,data){
         state.updateStaffRes = data;

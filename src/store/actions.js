@@ -53,6 +53,11 @@ export default {
         commit(types.GET_ATTENDANCE,res);
     },
 
+    async [types.GET_DEPARTMENT_ATTENDANCE_RATE] ({commit},dateObj) {
+        let res = await api.getDepartmentAttendanceRate(dateObj);
+        commit(types.GET_DEPARTMENT_ATTENDANCE_RATE,res);
+    },
+
     async [types.UPDATE_STAFF] ({commit},updateStaffObj) {
         updateStaffObj.employee_entry_time = formatDate(updateStaffObj.employee_entry_time);
         let res = await api.updateStaff(updateStaffObj);

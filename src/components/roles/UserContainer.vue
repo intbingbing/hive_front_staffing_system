@@ -1,10 +1,12 @@
 <template lang="pug">
     el-container
-        el-aside(width="200px")
+        el-aside(width="16%")
             div.logo
+                router-link(to="/user/home")
+                    img(src="../../assets/xiao2.png" width="200px" height="54px")
             AdminAside
         el-container
-            el-header(height="54px") AdminAside
+            el-header(height="54px") header
             el-main
                 router-view
             el-footer(height="20px") Footer
@@ -26,15 +28,18 @@
     .el-container{
         height: 99.9vh;
         .el-aside {
-            background-color: #D3DCE6;
+            background-color: rgba(0,0,0,0.1);
             color: #333;
             .logo{
+                background-color: #001852;
                 height: 54px;
+                display: flex;
+                justify-content:center;
             }
         }
         .el-container{
             .el-header {
-                background-color: #B3C0D1;
+                background-color: rgba(0,0,0,0.1);
                 color: #333;
             }
             .el-main {

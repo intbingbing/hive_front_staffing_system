@@ -35,6 +35,7 @@ const state={
     departmentInfo:[],
     getClockInRes:[],
     getAttendanceRes:[],
+    getDepartmentAttendanceRes:[],
     postMapDepartmentInfo:[],
     postCascader:{},
     updateStaffRes:[],

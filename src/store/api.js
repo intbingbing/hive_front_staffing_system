@@ -27,6 +27,7 @@ const deleteStaffUrl='/user/hive_employee';
 const associationUrl='/user/hive_association';
 const attendanceUrl='/user/hive_attendance';
 const clockInUrl='/user/hive_clock_in';
+const departmentAttendanceRateUrl='/user/hive_clock_in_department';
 const testUrl='/user/hive_test';
 
 axios.defaults.withCredentials = true;
@@ -60,8 +61,13 @@ export async function getClockIn(dateObj){
     return (await axios.get(`${baseUrl}${clockInUrl}/${dateObj.date}`)).data;
 }
 
+//按天获取所有员工打卡记录
 export async function getAttendance(dateObj){
     return (await axios.get(`${baseUrl}${attendanceUrl}/${dateObj.date}`)).data;
+}
+
+export async function getDepartmentAttendanceRate(dateObj){
+    return (await axios.get(`${baseUrl}${departmentAttendanceRateUrl}/${dateObj.date}`)).data;
 }
 
 export async function updateStaff(updateStaffObj){
