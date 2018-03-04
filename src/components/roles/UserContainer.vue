@@ -3,7 +3,7 @@
         el-aside(width="16%")
             div.logo
                 router-link(to="/user/home")
-                    img(src="../../assets/xiao2.png" width="200px" height="54px")
+                    img(src="../../assets/xiao.png" width="200px" height="54px")
             AdminAside
         el-container
             el-header(height="54px") header

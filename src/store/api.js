@@ -28,6 +28,8 @@ const associationUrl='/user/hive_association';
 const attendanceUrl='/user/hive_attendance';
 const clockInUrl='/user/hive_clock_in';
 const departmentAttendanceRateUrl='/user/hive_clock_in_department';
+const departmentFileListUrl='/user/hive_department_file_list';
+const departmentFileUrl='/user/hive_department_file';
 const testUrl='/user/hive_test';
 
 axios.defaults.withCredentials = true;
@@ -70,6 +72,10 @@ export async function getDepartmentAttendanceRate(dateObj){
     return (await axios.get(`${baseUrl}${departmentAttendanceRateUrl}/${dateObj.date}`)).data;
 }
 
+export async function getDepartmentFileList(dateObj){
+    return (await axios.get(`${baseUrl}${departmentFileListUrl}`)).data;
+}
+
 export async function updateStaff(updateStaffObj){
     return (await axios.put(`${baseUrl}${updateStaffUrl}`,qs.stringify(
         updateStaffObj
@@ -79,6 +85,12 @@ export async function updateStaff(updateStaffObj){
 export async function updateAssociation(updateAssociationObj){
     return (await axios.put(`${baseUrl}${associationUrl}`,qs.stringify(
         updateAssociationObj
+    ))).data;
+}
+
+export async function renameFile(fileObj){
+    return (await axios.put(`${baseUrl}${departmentFileUrl}`,qs.stringify(
+        fileObj
     ))).data;
 }
 
@@ -100,6 +112,10 @@ export async function deleteStaff(deleteStaffIndexObj){
 
 export async function deleteAssociation(deleteAssociationIndexObj){
     return (await axios.delete(`${baseUrl}${associationUrl}/${deleteAssociationIndexObj.id}`)).data;
+}
+
+export async function deleteFile(fileObj){
+    return (await axios.delete(`${baseUrl}${departmentFileUrl}/${fileObj.name}`)).data;
 }
 
 //V1.0

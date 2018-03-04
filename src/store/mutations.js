@@ -53,11 +53,17 @@ export default {
     [types.GET_DEPARTMENT_ATTENDANCE_RATE](state,data){
         state.getDepartmentAttendanceRes.push(data) ;
     },
+    [types.GET_DEPARTMENT_FILE_LIST](state,data){
+        state.getDepartmentFileListRes = data ;
+    },
     [types.UPDATE_STAFF](state,data){
         state.updateStaffRes = data;
     },
     [types.UPDATE_ASSOCIATION](state,data){
         state.updateAssociationRes = data;
+    },
+    [types.UPDATE_FILE_NAME](state,data){
+        state.renameFileRes = data;
     },
     [types.CREATE_STAFF](state,data){
         state.createStaffRes = data;
@@ -70,6 +76,9 @@ export default {
     },
     [types.DELETE_ASSOCIATION](state,data){
         state.deleteAssociationRes = data;
+    },
+    [types.DELETE_FILE](state,data){
+        state.deleteFileRes = data;
     },
     [types.LOG_IN](state, {data}){
         state.loginInfo=data;

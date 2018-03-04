@@ -58,6 +58,11 @@ export default {
         commit(types.GET_DEPARTMENT_ATTENDANCE_RATE,res);
     },
 
+    async [types.GET_DEPARTMENT_FILE_LIST] ({commit},dateObj) {
+        let res = await api.getDepartmentFileList();
+        commit(types.GET_DEPARTMENT_FILE_LIST,res);
+    },
+
     async [types.UPDATE_STAFF] ({commit},updateStaffObj) {
         updateStaffObj.employee_entry_time = formatDate(updateStaffObj.employee_entry_time);
         let res = await api.updateStaff(updateStaffObj);
@@ -67,6 +72,11 @@ export default {
     async [types.UPDATE_ASSOCIATION] ({commit},updateAssociationObj) {
         let res = await api.updateAssociation(updateAssociationObj);
         commit(types.UPDATE_ASSOCIATION,res);
+    },
+
+    async [types.UPDATE_FILE_NAME] ({commit},fileObj) {
+        let res = await api.renameFile(fileObj);
+        commit(types.UPDATE_FILE_NAME,res);
     },
 
     async [types.CREATE_STAFF] ({commit},createStaffObj) {
@@ -88,6 +98,11 @@ export default {
     async [types.DELETE_ASSOCIATION] ({commit},deleteAssociationIndexObj) {
         let res = await api.deleteAssociation(deleteAssociationIndexObj);
         commit(types.DELETE_ASSOCIATION,res);
+    },
+
+    async [types.DELETE_FILE] ({commit},fileObj) {
+        let res = await api.deleteFile(fileObj);
+        commit(types.DELETE_FILE,res);
     },
 
     async [types.LOG_IN] ({commit},{username,password}) {
