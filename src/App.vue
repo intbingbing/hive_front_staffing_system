@@ -56,4 +56,11 @@
         color: #2c3e50;
         margin-top: 56px;
     }
+    #id{
+        background:rgba(255,255,255,1);
+        /*background: url("./assets/bg2.jpg") no-repeat center center fixed;*/
+        /*background-size: cover;*/
+    }
+
+
 </style>

@@ -2,8 +2,8 @@
     el-menu(
     class="el-menu-vertical-demo"
     background-color="rgba(0,0,0,0)"
-    text-color="#555"
-    active-text-color="#149388"
+    text-color="rgb(161, 158, 158)"
+    active-text-color="#fff"
     v-bind:unique-opened='true'
     :router="true"
     )
@@ -117,6 +117,6 @@
     .el-menu{
         border:0;
         padding: 15px;
-        font-weight: 600;
+        /*font-weight: 600;*/
     }
 </style>
