@@ -12,7 +12,7 @@
             el-col(:span="24")
                 //row-dblclick:双击行事件(row,event),row当前行对象；select:手动勾选box事件，selection：选中的对象数组,row，本次勾选行对象；
                 el-table(:data="pagingStaffInfo" border size="mini"
-                    stripe @row-dblclick="dbclick" @selection-change="selectBox")
+                     @row-dblclick="dbclick" @selection-change="selectBox" :row-style="rowStyle" :cell-style="cellStyle" :header-row-style="headerRowStyle")
                     el-table-column(type="selection" width="35")
                     el-table-column(prop="employee_id" label="工号" width="50px")
                     el-table-column(prop="employee_name" label="姓名")
@@ -112,6 +112,17 @@
             }
         },
         methods: {
+            rowStyle(){
+                return 'background:transparent'
+            },
+            cellStyle(){
+                //return 'color:red'
+                return 'background:transparent'
+            },
+            headerRowStyle(){
+                return 'background:transparent'
+                //return 'background-color:rgba(0,0,0,0)'
+            },
             async test(){
 //                //console.time('T');
 //                console.log('up');

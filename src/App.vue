@@ -57,10 +57,72 @@
         margin-top: 56px;
     }
     #id{
-        background:rgba(255,255,255,1);
-        /*background: url("./assets/bg2.jpg") no-repeat center center fixed;*/
-        /*background-size: cover;*/
+        /*background:rgba(255,255,255,1);*/
+        background: url("./assets/bg2.jpg") no-repeat center center fixed;
+        background-size: cover;
     }
 
-
+    .el-table th, .el-table tr{
+        background: transparent;
+    }
+    .el-table, .el-table__expanded-cell{
+        background: transparent;
+    }
+    .el-checkbox__inner{
+        background: transparent;
+    }
+    .el-checkbox{
+        color:rgba(0,0,0,0)
+    }
+    .el-input__inner{
+        background: transparent;
+    }
+    .el-pagination button.disabled{
+        background: transparent;
+    }
+    .el-dialog, .el-pager li{
+        background: transparent;
+    }
+    .el-pagination .btn-next, .el-pagination .btn-prev{
+        background: transparent;
+    }
+    .el-table--striped .el-table__body tr.el-table__row--striped td{
+        background: transparent;
+    }
+    .el-dialog{
+        background: #fff;
+    }
+    .el-tree{
+        background: transparent;
+    }
+    button span{
+        color:#fff
+    }
+    .el-button--default span{
+        color:#606266
+    }
+    .el-icon-arrow-down{
+        color:#fff
+    }
+    .el-tree-node:focus>.el-tree-node__content, .el-tree-node__content:hover {
+        background-color: rgba(5,32,44,0.5)
+    }
+    .el-tree--highlight-current .el-tree-node.is-current>.el-tree-node__content {
+        background-color: rgba(5,32,44,0.5)
+    }
+    .el-menu-item:focus, .el-menu-item:hover {
+        background-color: rgba(255,255,255,1)
+    }
+    .el-upload-dragger {
+        background-color: #0000;
+    }
+    .el-upload-dragger .el-upload__text{
+        color:#ddd
+    }
+    .el-notification__content>p{
+        color: #606266;
+    }
+    *{
+        color:#ddd
+    }
 </style>

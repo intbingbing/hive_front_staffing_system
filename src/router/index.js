@@ -67,38 +67,37 @@ const router = new Router({
 });
 
 router.beforeEach(async (to, from, next) => {
-    // if(to.path==='/login'){
-    //     next();
-    // }else{
-    //     let res=await api.checkCookie();
-    //     if(res.statusCode==='200112'){
-    //         // router.app.$options.store.state.userInfo.username=res.data.username;
-    //         // router.app.$options.store.state.userInfo.headerPortraitSrc=`http://122.112.210.98/ftp/${res.data.username}.jpg`;
-    //         // console.log(router.app.$options.store.state.userInfo);
-    //         res.headerPortraitURL = `http://122.112.210.98/ftp/${res.username}.jpg`;
-    //         router.app.$options.store.commit(LOAD_HEADER_PORTRAIT_URL,res);
-    //         next();
-    //     }else{
-    //         next('/login');
-    //     }
-    // }
-
-
     if(to.path==='/login'){
         next();
     }else{
-        let res={"statusCode":"200112","tag":1,"username":"admin"};
+        let res=await api.checkCookie();
         if(res.statusCode==='200112'){
-            // router.app.$options.store.state.userInfo.username=res.data.username;
-            // router.app.$options.store.state.userInfo.headerPortraitSrc=`http://122.112.210.98/ftp/${res.data.username}.jpg`;
+            router.app.$options.store.state.userInfo.username=res.username;
+            router.app.$options.store.state.userInfo.headerPortraitSrc=`http://122.112.210.98/ftp/${res.username}.jpg`;
             // console.log(router.app.$options.store.state.userInfo);
-            res.headerPortraitURL = `http://122.112.210.98/ftp/${res.username}.jpg`;
-            router.app.$options.store.commit(types.LOAD_HEADER_PORTRAIT_URL,res);
+            //router.app.$options.store.commit(LOAD_HEADER_PORTRAIT_URL,res);
             next();
         }else{
             next('/login');
         }
     }
+
+    //
+    // if(to.path==='/login'){
+    //     next();
+    // }else{
+    //     let res={"statusCode":"200112","tag":1,"username":"admin"};
+    //     if(res.statusCode==='200112'){
+    //         // router.app.$options.store.state.userInfo.username=res.data.username;
+    //         // router.app.$options.store.state.userInfo.headerPortraitSrc=`http://122.112.210.98/ftp/${res.data.username}.jpg`;
+    //         // console.log(router.app.$options.store.state.userInfo);
+    //         res.headerPortraitURL = `http://122.112.210.98/ftp/${res.username}.jpg`;
+    //         router.app.$options.store.commit(types.LOAD_HEADER_PORTRAIT_URL,res);
+    //         next();
+    //     }else{
+    //         next('/login');
+    //     }
+    // }
 });
 
 export default router;

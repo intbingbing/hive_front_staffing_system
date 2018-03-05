@@ -16,7 +16,7 @@
                         em 点击上传
                     div.el-upload__tip(slot="tip") 不能超过5M
                     div.el-upload__tip(slot="tip")
-            el-table(:data="getDepartmentFileListRes"  border size="mini" stripe )
+            el-table(:data="getDepartmentFileListRes"  border size="mini")
                 el-table-column(prop="name" label="文件名")
                 el-table-column(label="创建者")
                     template(slot-scope="scope")
@@ -116,5 +116,7 @@
     a{
         text-decoration:none;
         color:#fff;
+    }
+    table ,tr,.el-table__row:hover{
     }
 </style>

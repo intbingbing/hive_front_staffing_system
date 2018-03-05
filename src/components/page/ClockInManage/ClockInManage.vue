@@ -63,20 +63,20 @@
                         {source: this.chartsDepartmentRate},
                     ],
                     title: [
-                        {text: '近5天出勤率趋势总览',left:'20%'},
-                        {text: '各部门平均出勤率',right:'20%'},
+                        {text: '近5天出勤率趋势总览',left:'20%',textStyle:{color:'#eee'}},
+                        {text: '各部门平均出勤率',right:'20%',textStyle:{color:'#eee'}},
                     ],
                     tooltip: {
                         trigger: 'axis',
                     },
                     legend: [
-                        {orient:'vertical',itemGap:7,left:'5px',bottom:'5px',data:[
+                        {orient:'vertical',itemGap:7,left:'5px',bottom:'5px',textStyle:{color:'#eee'},data:[
                             {name: '出勤率',},
                             {name: '准时上班率',},
                             {name: '准时下班率',}
                             ]
                         },
-                        {orient:'vertical',itemGap:7,right:'5px',bottom:'5px',data:[
+                        {orient:'vertical',itemGap:7,right:'5px',bottom:'5px',textStyle:{color:'#eee'},data:[
                             {name: '总裁办',},
                             {name: '技术部',},
                             {name: '开发一部',},

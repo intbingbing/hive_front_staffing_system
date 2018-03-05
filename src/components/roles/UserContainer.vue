@@ -39,10 +39,9 @@
     .el-container{
         height: 99.9vh;
         .el-aside {
-            background-color: #2a2e34;
-            color: #333333;
+            background-color: rgba(42,46,52,0.6);
             .logo{
-                background-color: #008df6;
+                background-color: rgba(5,32,44,0.5);
                 height: 54px;
                 display: flex;
                 justify-content:center;
@@ -50,8 +49,8 @@
         }
         .el-container{
             .el-header {
-                background-color:#0070c1;
-                color: #333;
+                background-color:rgba(255,255,255,0.2);
+                color: #aaaaaa;
                 display: flex;
                 justify-content:start;
                 align-items:center;
@@ -59,7 +58,7 @@
                     font-size: 14px;
                     padding: 0 12px;
                     a{
-                        color: rgb(164, 204, 235);
+                        color: #ccc;
                         text-decoration:none;
                     }
                     a:hover{
@@ -68,7 +67,7 @@
                 }
             }
             .el-main {
-                color: #333;
+                /*background-color: rgba(255,255,255,1);*/
             }
             .el-footer {
             }

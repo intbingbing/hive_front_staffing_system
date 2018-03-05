@@ -61,4 +61,7 @@
     div{
         margin-top:15px
     }
+    .cell{
+        color:#606266
+    }
 </style>

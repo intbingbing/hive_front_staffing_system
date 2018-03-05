@@ -8,7 +8,7 @@
             el-dropdown
                 div#header-portrait.el-dropdown-link
                     a(href="#")
-                        img.user(:src="userInfo.headerPortraitURL")
+                        img.user(:src="userInfo.headerPortraitSrc")
                 el-dropdown-menu(slot="dropdown")
                     el-dropdown-item
                         i.el-icon-info &nbsp;&nbsp;主页

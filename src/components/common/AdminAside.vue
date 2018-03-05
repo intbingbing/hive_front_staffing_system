@@ -2,7 +2,7 @@
     el-menu(
     class="el-menu-vertical-demo"
     background-color="rgba(0,0,0,0)"
-    text-color="rgb(161, 158, 158)"
+    text-color="#aaaaaa"
     active-text-color="#fff"
     v-bind:unique-opened='true'
     :router="true"

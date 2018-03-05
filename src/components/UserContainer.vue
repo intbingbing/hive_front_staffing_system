@@ -29,6 +29,7 @@
 </script>
 <style lang="less" scoped>
     .el-container{
+        background-color: #fff;
         min-height: 96vh;
         display: flex;
         .el-header{
