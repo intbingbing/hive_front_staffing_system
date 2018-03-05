@@ -1,6 +1,6 @@
 <template lang="pug">
     el-container.home
-        el-aside(width="16%")
+        el-aside(width="230px")
             div.logo
                 router-link(to="/user/home")
                     img(src="../../assets/xiao.png" width="200px" height="54px")
