@@ -117,7 +117,7 @@ export default {
             commit(types.LOG_IN_ERROR,{data:res.data});
         }else{
             commit(types.LOG_IN,{data:res.data});
-            router.push({ name: 'home' })
+            router.push({ name: 'staff_management' })
         }
     },
     async [types.ID_QUERY] ({commit},{id}) {

@@ -58,7 +58,7 @@
     }
     #id{
         /*background:rgba(255,255,255,1);*/
-        background: url("./assets/bg2.jpg") no-repeat center center fixed;
+        background: url("static/bg.jpg") no-repeat center center fixed;
         background-size: cover;
     }
 
