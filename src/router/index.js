@@ -23,7 +23,7 @@ Vue.use(Router);
 
 const router = new Router({
     routes: [
-        { path: '/', name: 'Container', component: userContainer },
+        { path: '/', redirect:{ name:'staff_management' } },
         { path:'/login', name:'Login', component:Login },
         { path:'/test', name:'Test', component:Test },
         { path:'/user', component:UserContainer, children:[
