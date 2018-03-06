@@ -330,4 +330,7 @@
             }
         }
     }
+    .el-select>.el-input>.el-input__inner{
+        color: #fff;
+    }
 </style>

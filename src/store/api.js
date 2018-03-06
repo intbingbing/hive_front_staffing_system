@@ -30,6 +30,7 @@ const clockInUrl='/user/hive_clock_in';
 const departmentAttendanceRateUrl='/user/hive_clock_in_department';
 const departmentFileListUrl='/user/hive_department_file_list';
 const departmentFileUrl='/user/hive_department_file';
+const noticeUrl='/user/hive_notice';
 const testUrl='/user/hive_test';
 
 axios.defaults.withCredentials = true;
@@ -76,6 +77,10 @@ export async function getDepartmentFileList(dateObj){
     return (await axios.get(`${baseUrl}${departmentFileListUrl}`)).data;
 }
 
+export async function getNotice(){
+    return (await axios.get(`${baseUrl}${noticeUrl}`)).data;
+}
+
 export async function updateStaff(updateStaffObj){
     return (await axios.put(`${baseUrl}${updateStaffUrl}`,qs.stringify(
         updateStaffObj
@@ -103,6 +108,12 @@ export async function createStaff(createStaffObj){
 export async function createAssociation(createAssociationObj){
     return (await axios.post(`${baseUrl}${associationUrl}`,qs.stringify(
         createAssociationObj
+    ))).data;
+}
+
+export async function createNotice(createNoticeObj){
+    return (await axios.post(`${baseUrl}${noticeUrl}`,qs.stringify(
+        createNoticeObj
     ))).data;
 }
 

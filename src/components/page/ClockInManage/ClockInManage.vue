@@ -97,8 +97,8 @@
                         }
                     },
                     xAxis:[
-                        {type: 'category',gridIndex: 0},
-                        {type: 'category',gridIndex: 1},
+                        {type: 'category',gridIndex: 0,axisLine:{lineStyle:{color:'#fff'}}},
+                        {type: 'category',gridIndex: 1,axisLine:{lineStyle:{color:'#fff'}}},
                     ],
                     yAxis:[
                         {
@@ -110,6 +110,7 @@
                             max:value=>parseInt(value.max+1),
                             gridIndex: 0,
                             position:'right',
+                            axisLine:{lineStyle:{color:'#fff'}}
                         },
                         {
                             type: 'value',
@@ -118,7 +119,8 @@
                             },
                             min:value=>parseInt(value.min-1),
                             max:value=>parseInt(value.max+1),
-                            gridIndex: 1
+                            gridIndex: 1,
+                            axisLine:{lineStyle:{color:'#fff'}}
                         },
                     ],
                     series: [

@@ -56,6 +56,9 @@ export default {
     [types.GET_DEPARTMENT_FILE_LIST](state,data){
         state.getDepartmentFileListRes = data ;
     },
+    [types.GET_NOTICE](state,data){
+        state.getNoticeRes = data ;
+    },
     [types.UPDATE_STAFF](state,data){
         state.updateStaffRes = data;
     },
@@ -71,6 +74,9 @@ export default {
     [types.CREATE_ASSOCIATION](state,data){
         state.createAssociationRes = data;
     },
+    [types.CREATE_NOTICE](state,data){
+        state.createNoticeRes = data;
+    },
     [types.DELETE_STAFF](state,data){
         state.deleteStaffRes = data;
     },
@@ -80,10 +86,10 @@ export default {
     [types.DELETE_FILE](state,data){
         state.deleteFileRes = data;
     },
-    [types.LOG_IN](state, {data}){
+    [types.LOG_IN](state, data){
         state.loginInfo=data;
     },
-    [types.LOG_IN_ERROR](state, {data}){
+    [types.LOG_IN_ERROR](state, data){
         state.loginInfo=data;
     },
     [types.LOG_OUT](state){

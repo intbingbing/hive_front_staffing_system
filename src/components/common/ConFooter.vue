@@ -12,7 +12,7 @@
 <style scoped>
     footer{
         text-align: center;
-        color: rgb(60, 54, 61);
+        color: #ddd;
         font-size: 10px;
     }
 </style>

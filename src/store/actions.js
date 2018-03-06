@@ -63,6 +63,11 @@ export default {
         commit(types.GET_DEPARTMENT_FILE_LIST,res);
     },
 
+    async [types.GET_NOTICE] ({commit}) {
+        let res = await api.getNotice();
+        commit(types.GET_NOTICE,res);
+    },
+
     async [types.UPDATE_STAFF] ({commit},updateStaffObj) {
         updateStaffObj.employee_entry_time = formatDate(updateStaffObj.employee_entry_time);
         let res = await api.updateStaff(updateStaffObj);
@@ -90,6 +95,11 @@ export default {
         commit(types.CREATE_ASSOCIATION,res);
     },
 
+    async [types.CREATE_NOTICE] ({commit},createNoticeObj) {
+        let res = await api.createNotice(createNoticeObj);
+        commit(types.CREATE_NOTICE,res);
+    },
+
     async [types.DELETE_STAFF] ({commit},deleteStaffIndexObj) {
         let res = await api.deleteStaff(deleteStaffIndexObj);
         commit(types.DELETE_STAFF,res);
@@ -114,9 +124,9 @@ export default {
         console.log(`salt:${salt};pass:${password};secret:${secret}`);
         let res = await api.login(username,secret);
         if(res.data.tag===0){
-            commit(types.LOG_IN_ERROR,{data:res.data});
+            commit(types.LOG_IN_ERROR,res.data);
         }else{
-            commit(types.LOG_IN,{data:res.data});
+            commit(types.LOG_IN,res.data);
             router.push({ name: 'staff_management' })
         }
     },

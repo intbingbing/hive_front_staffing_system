@@ -45,6 +45,8 @@ const state={
     updateAssociationRes:[],
     createStaffRes:{},
     createAssociationRes:{},
+    getNoticeRes:[],
+    createNoticeRes:{},
     deleteStaffRes:{},
     deleteAssociationRes:{},
     edu:['博士','硕士','本科','大专','中专','高中','初中','其他'],

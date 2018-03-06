@@ -61,7 +61,9 @@
         background: url("static/bg.jpg") no-repeat center center fixed;
         background-size: cover;
     }
-
+    table .cell,.el-pager .number,.el-pagination>.el-pager>.el-icon-more{
+        color:#fff;
+    }
     .el-table th, .el-table tr{
         background: transparent;
     }
@@ -89,11 +91,13 @@
     .el-table--striped .el-table__body tr.el-table__row--striped td{
         background: transparent;
     }
+
     .el-dialog{
         background: #fff;
     }
     .el-tree{
         background: transparent;
+        color:#fff;
     }
     button span{
         color:#fff
@@ -119,10 +123,19 @@
     .el-upload-dragger .el-upload__text{
         color:#ddd
     }
-    .el-notification__content>p{
+    .el-notification__content>p,.el-select-dropdown__item>span{
         color: #606266;
     }
-    *{
-        color:#ddd
+    .el-pagination__total ,.el-pagination__jump,.el-pagination__jump>.el-pagination__editor>.el-input__inner{
+        color: #ffffff;
     }
+    .el-input--small>.el-input__inner,.el-message-box__message>p,.el-message-box__title>span{
+        color: #606266;
+    }
+    .el-button--primary>span{
+        color: #ffffff;
+    }
+    /**{*/
+        /*color:#ddd*/
+    /*}*/
 </style>
