@@ -45,7 +45,13 @@ const router = new Router({
                 { path:'position_management', redirect:{ name:'department_management' } },
             ]},
             { path:'attendance_management', component:SectionContainer, children:[
-                { path:'clock_in', name:'clock_in', component:ClockInManage },
+                { path:'clock_in', name:'clock_in', component:ClockInManage ,
+                    beforeEnter:(to,from,next)=>{
+                        router.app.$options.store.commit(types.CHANGE_LOADING,{status:true});
+                        //console.log(router.app.$options)
+                        next();
+                    }
+                },
                 { path:'leave', name:'leave', component:VacationManage },
             ]},
             { path:'my_department', component:SectionContainer, children:[

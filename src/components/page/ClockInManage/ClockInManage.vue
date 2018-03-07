@@ -207,7 +207,6 @@
             }
         },
         mounted:async function () {
-            this.$store.commit(this.$types.CHANGE_LOADING,{status:true});
             await this.init();
             this.$store.commit(this.$types.CHANGE_LOADING,{status:false});
         },
