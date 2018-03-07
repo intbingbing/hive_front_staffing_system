@@ -1,10 +1,8 @@
-# hive_front_staffing_system Vue+element-ui
+# hive_front_staffing_system
 
-#### **员工管理项目**
-##### `demo`(http://122.112.210.98:4000/#/user/personnel_management/staff_management)
+#### **员工管理项目**  Vue+element-ui
+##### [`demo访问`](http://122.112.210.98:4000/#/user/personnel_management/staff_management)
 ##### `user:admin/admin yuyan.sun/yuyan.sun`
-
---------------
 
 ### **简介**
 
@@ -17,8 +15,6 @@
 > - excel导出 √
 > - 公告公示 √
 > - 权限管理 × 加紧实现中
-
-----------
 
 ### **截图：**
 #### login界面
