@@ -53,6 +53,7 @@ const state={
     permissionsSelect:[{value:1,label:'超级管理员'},{value:2,label:'管理员'},{value:3,label:'普通用户'}],
     propertySelect:[{value:1,label:'部门'},{value:0,label:'职位'}],
     valueName:{value:'association_id', label:'association_name',children: 'children'},
+    loading:false,
     test:''
 };
 

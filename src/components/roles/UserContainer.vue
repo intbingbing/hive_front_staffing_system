@@ -1,5 +1,8 @@
 <template lang="pug">
-    el-container.home
+    el-container.home(v-loading="loading"
+    element-loading-text="拼命加载中"
+    element-loading-spinner="el-icon-loading"
+    element-loading-background="rgba(0, 0, 0, 0.8)")
         el-aside(width="230px")
             div.logo
                 router-link(to="/user/home")
@@ -14,6 +17,7 @@
                 ConFooter
 </template>
 <script>
+    import { mapState } from 'vuex'
     import AdminAside from '../common/AdminAside.vue'
     import ConFooter from '../common/ConFooter.vue'
     import ConHeader from '../common/ConHeader.vue'
@@ -23,9 +27,13 @@
             ConFooter,
             ConHeader
         },
+        computed: {
+            ...mapState([
+                'loading',
+            ]),
+        },
         data:function () {
             return {
-
             }
         }
     }

@@ -249,12 +249,12 @@
                 //初始化表头过滤器 :filters
                 this.filters_post_name.splice(0);
                 for(let tmp of this.postInfo){
-                    let tmpObj={text:tmp['post_name'],value:tmp['association_id']};
+                    let tmpObj={text:tmp['association_name'],value:tmp['association_id']};
                     this.filters_post_name.push(tmpObj);
                 }
                 this.filters_department_name.splice(0);
                 for(let tmp of this.departmentInfo){
-                    let tmpObj={text:tmp['post_name'],value:tmp['association_id']};
+                    let tmpObj={text:tmp['association_name'],value:tmp['association_id']};
                     this.filters_department_name.push(tmpObj);
                 }
 
@@ -332,5 +332,8 @@
     }
     .el-select>.el-input>.el-input__inner{
         color: #fff;
+    }
+    .el-checkbox{
+        color: #606266;
     }
 </style>

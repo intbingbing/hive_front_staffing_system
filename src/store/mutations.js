@@ -158,5 +158,8 @@ export default {
     [types.ID_DELETE](state,res){
         state.idDeleteInfo.idDeleteSuccessful=1;
         state.idDeleteResult=res;
+    },
+    [types.CHANGE_LOADING](state,data){
+        state.loading=data.status;
     }
 }

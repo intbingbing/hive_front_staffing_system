@@ -40,9 +40,11 @@
 //                this.$store.dispatch(types.TEST,9);
 //            },
         },
-        mounted:function () {
+        mounted:async function () {
             //初始化封装在action INIT中，三个请求：GET_ALL_STAFF_INFO，GET_POST_MAP_DEPARTMENT，GET_POST_CASCADER
-            this.$store.dispatch(this.$types.INIT);
+            this.$store.commit(this.$types.CHANGE_LOADING,{status:true});
+            await this.$store.dispatch(this.$types.INIT);
+            this.$store.commit(this.$types.CHANGE_LOADING,{status:false});
         }
     }
 </script>
@@ -73,9 +75,9 @@
     .el-checkbox__inner{
         background: transparent;
     }
-    .el-checkbox{
-        color:rgba(0,0,0,0)
-    }
+    /*.el-checkbox{*/
+        /*color:rgba(0,0,0,0)*/
+    /*}*/
     .el-input__inner{
         background: transparent;
     }
@@ -134,6 +136,10 @@
     }
     .el-button--primary>span{
         color: #ffffff;
+    }
+
+    .el-card .el-form-item__content>.el-input>.el-input__inner{
+        color: #fff;
     }
     /**{*/
         /*color:#ddd*/

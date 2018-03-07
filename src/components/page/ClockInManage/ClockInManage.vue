@@ -35,7 +35,7 @@
                 opinion:[],
                 opinionData:[],
                 getClockInRateTag:'',
-                loadingStatus:false
+                loadingStatus:false,
             }
         },
         methods: {
@@ -140,6 +140,7 @@
                 window.onresize=this.charts.resize;
             },
             async init(){
+                this.loading = true;
                 this.selectClockInDate = ['20180219','20180220','20180221','20180222','20180223'];
                 this.$store.commit(this.$types.CLEAR_CLOCK_IN_RATE);
                 this.$store.commit(this.$types.CLEAR_DEPARTMENT_ATTENDANCE_RATE);
@@ -205,8 +206,10 @@
 
             }
         },
-        mounted:function () {
-            this.init();
+        mounted:async function () {
+            this.$store.commit(this.$types.CHANGE_LOADING,{status:true});
+            await this.init();
+            this.$store.commit(this.$types.CHANGE_LOADING,{status:false});
         },
         watch: {
         },
