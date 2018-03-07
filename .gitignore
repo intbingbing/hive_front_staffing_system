@@ -5,7 +5,8 @@ config/index.js
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
-
+dist.zip
+*.zip
 # Editor directories and files
 .idea
 .vscode
