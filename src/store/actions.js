@@ -121,7 +121,7 @@ export default {
         password=salt+password;
         let secret = md5(password).toString(hex);
         secret=md5(secret).toString(hex);
-        console.log(`salt:${salt};pass:${password};secret:${secret}`);
+        //console.log(`salt:${salt};pass:${password};secret:${secret}`);
         let res = await api.login(username,secret);
         if(res.data.tag===0){
             commit(types.LOG_IN_ERROR,res.data);

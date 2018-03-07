@@ -150,4 +150,7 @@
     #fill{
         height: 10px;
     }
+    .el-input__inner{
+        color: #fff;
+    }
 </style>

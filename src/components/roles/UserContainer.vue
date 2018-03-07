@@ -7,14 +7,7 @@
             AdminAside
         el-container
             el-header(height="54px")
-                span
-                    a(href="#") 门户
-                span
-                    a(href="#") 流程
-                span
-                    a(href="#") 微博
-                span
-                    a(href="#") 协同
+                ConHeader
             el-main
                 router-view
             el-footer(height="20px")
@@ -23,10 +16,12 @@
 <script>
     import AdminAside from '../common/AdminAside.vue'
     import ConFooter from '../common/ConFooter.vue'
+    import ConHeader from '../common/ConHeader.vue'
     export default {
         components:{
             AdminAside,
-            ConFooter
+            ConFooter,
+            ConHeader
         },
         data:function () {
             return {
@@ -54,17 +49,7 @@
                 display: flex;
                 justify-content:start;
                 align-items:center;
-                span{
-                    font-size: 14px;
-                    padding: 0 12px;
-                    a{
-                        color: #ccc;
-                        text-decoration:none;
-                    }
-                    a:hover{
-                        color:#fff;
-                    }
-                }
+
             }
             .el-main {
                 /*background-color: rgba(255,255,255,1);*/

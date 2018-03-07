@@ -16,6 +16,7 @@ const VacationManage = () => import('@/components/page/VacationManage/VacationMa
 const DepartmentFile = () => import('@/components/page/DepartmentFile/DepartmentFile');
 const ChartShow = () => import('@/components/page/ChartShow/ChartShow');
 const Home = () => import('@/components/page/Home/Home');
+const ErrorPage404 = () => import('@/components/page/errorPage/404.vue');
 const A = () => import('@/components/A');
 const B = () => import('@/components/B');
 
@@ -62,7 +63,8 @@ const router = new Router({
             // { path:'personnel_management/department_management', name:'department_management', component:PostDepartmentManagement },
             // { path:'personnel_management/position_management', redirect:'personnel_management/department_management' },
 
-        ]}
+        ]},
+        { path:'*', component:ErrorPage404,},
     ]
 });
 
