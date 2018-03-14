@@ -221,4 +221,7 @@
         font-size: 14px;
         padding-right: 8px;
     }
+    div.custom-tree-container .el-button--text{
+        color:#fff;
+    }
 </style>

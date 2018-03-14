@@ -13,7 +13,6 @@
     import { mapState } from 'vuex'
     import ClockInRateTable from './ClockInRateTable.vue'
     import * as echarts from 'echarts'
-    import * as vintage from '../../../../theme/vintage'
     export default {
         components:{
             ClockInRateTable

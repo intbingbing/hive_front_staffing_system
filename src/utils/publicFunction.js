@@ -20,6 +20,8 @@ export function formatDate (date,options){
     switch (options){
         case 'number':result = `${year}${monthString}${dayString}`;
         break;
+        case 'exact' :result = `${year}${monthString}${dayString}`;
+        break;
         default:result = `${year}-${monthString}-${dayString}`;
     }
     return result;

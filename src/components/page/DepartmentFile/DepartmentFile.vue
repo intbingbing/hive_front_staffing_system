@@ -119,4 +119,7 @@
     }
     table ,tr,.el-table__row:hover{
     }
+    div.el-upload__tip{
+        color:#ddd;
+    }
 </style>

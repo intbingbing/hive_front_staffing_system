@@ -6,7 +6,7 @@ import router from '../router'
 
 Vue.use(VueAxios,axios);
 
-const baseUrl='http://122.112.210.98:3000';
+const baseUrl='http://118.25.16.102:3000';
 const loginUrl='/login';
 const idQueryUrl = '/idquery';
 const createSubmitUrl='/addsubmit';
@@ -31,6 +31,7 @@ const departmentAttendanceRateUrl='/user/hive_clock_in_department';
 const departmentFileListUrl='/user/hive_department_file_list';
 const departmentFileUrl='/user/hive_department_file';
 const noticeUrl='/user/hive_notice';
+const weatherUrl='/api/proxy/weather';
 const testUrl='/user/hive_test';
 
 axios.defaults.withCredentials = true;
@@ -79,6 +80,10 @@ export async function getDepartmentFileList(dateObj){
 
 export async function getNotice(){
     return (await axios.get(`${baseUrl}${noticeUrl}`)).data;
+}
+
+export async function getWeather(){
+    return (await axios.get(`${baseUrl}${weatherUrl}`)).data;
 }
 
 export async function updateStaff(updateStaffObj){
