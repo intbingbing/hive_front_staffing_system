@@ -64,7 +64,7 @@ router.beforeEach(async (to, from, next) => {
         let res=await api.checkCookie();
         if(res.statusCode==='200112'){
             router.app.$options.store.state.userInfo.username=res.username;
-            router.app.$options.store.state.userInfo.headerPortraitSrc=`http://122.112.210.98/ftp/${res.username}.jpg`;
+            router.app.$options.store.state.userInfo.headerPortraitSrc=`http://118.25.16.102/ftp/${res.username}.jpg`;
             router.app.$options.store.commit(types.LOG_IN,res);
             // console.log(router.app.$options.store.state.userInfo);
             //router.app.$options.store.commit(LOAD_HEADER_PORTRAIT_URL,res);
