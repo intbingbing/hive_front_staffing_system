@@ -1,7 +1,7 @@
 # hive_front_staffing_system
 说明：暂时告一段落，前后端数据已全部迁移到腾讯主机。
 #### **员工管理项目**  Vue+element-ui
-##### [`新demo访问`](http://118.25.16.102:8000/#/user/personnel_management/staff_management) http://118.25.16.102:8000/#/user/personnel_management/staff_management
+##### [`新demo访问(请使用Chrome浏览器)`](http://118.25.16.102:8000/#/user/personnel_management/staff_management) http://118.25.16.102:8000/#/user/personnel_management/staff_management
 ##### `测试用户：admin/admin yuyan.sun/yuyan.sun`
 
 ### **简介**
